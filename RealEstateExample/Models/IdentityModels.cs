@@ -20,6 +20,11 @@ namespace RealEstateExample.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Listing> Listings { get; set; }
+        public DbSet<Realtor> Realtors { get; set; }
+        public DbSet<ListingPhotograph> ListingPhotographs { get; set; }
+        public DbSet<ListingScheduleType> ListingScheduleTypes { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

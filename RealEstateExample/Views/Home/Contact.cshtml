@@ -5,13 +5,35 @@
 <h3>@ViewBag.Message</h3>
 
 <address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
+  
 </address>
 
 <address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+
 </address>
+
+
+@section scripts
+{
+    <script>
+        // $(#customers".on("click",".js-delete",function() {
+        // var button = $(this);
+        //});
+
+        /*
+        bootbox.confirm("Are you sure?", function (result) {
+            if (result) {
+//               $.ajax({
+            //        url: "",
+                //    method: "delete",
+                //    success: function () {
+                 //   button.parents("tr").removeAll();
+               // })
+            }
+        });
+        */
+
+        toastr.success("Success Toast");
+        toastr.error("Error Toast");
+    </script>
+}
