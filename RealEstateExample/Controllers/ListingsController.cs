@@ -31,7 +31,6 @@ namespace RealEstateExample.Controllers
             try
             {
                // var listings = GetListings();
-               //  var listings = _context.Listings;
 
                 var listingsList = _context.Listings.ToList();
                 return View(listingsList);
@@ -40,7 +39,7 @@ namespace RealEstateExample.Controllers
             {
                 Debug.WriteLine("Debug: {0}", e.Message);
 
-                var listings2 = new List<Listing> { };
+                var listings2 = new List<Listing>();
                 return View(listings2);
             }
         }
@@ -70,13 +69,13 @@ namespace RealEstateExample.Controllers
 
                 var viewModel = new ListingViewModel
                 {
-                    Listing = new Listing { }
+                    Listing = new Listing()
                 };
                 return View(viewModel);
             }
         }
 
-        // GET: Listings/Create
+     /*   // GET: Listings/Create
         public ActionResult Create()
         {
             return View();
@@ -96,7 +95,7 @@ namespace RealEstateExample.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
 
         // GET: Listings/Delete/5
@@ -149,7 +148,8 @@ namespace RealEstateExample.Controllers
 
             var viewModel = new ListingViewModel()
             {
-                Listing = new Listing() { }
+                Listing = new Listing()/*,
+                ListingScheduleTypes = scheduleTypes*/
             };
             return View("Edit", viewModel);
         }
@@ -221,18 +221,16 @@ namespace RealEstateExample.Controllers
                     listingInDb.Phone = viewModel.Listing.Phone;
                     listingInDb.Address = viewModel.Listing.Address;
 
-                    listingInDb.Address = viewModel.Listing.Address;
-
                     listingInDb.Lat = viewModel.Listing.Lat;
                     listingInDb.Lng = viewModel.Listing.Lng;
                     listingInDb.Cost = viewModel.Listing.Cost;
                     listingInDb.BuildYear = viewModel.Listing.BuildYear;
 
                     listingInDb.RealtorId = viewModel.Listing.RealtorId;
+
                     listingInDb.State = viewModel.Listing.State;
-                    listingInDb.ListingScheduleType = viewModel.Listing.ListingScheduleType;
+                    
                     listingInDb.ListingScheduleTypeId = viewModel.Listing.ListingScheduleTypeId;
-          
                 }
                 catch (NullReferenceException ex)
                 {
@@ -249,8 +247,12 @@ namespace RealEstateExample.Controllers
             {
                 Debug.WriteLine(ex);
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
-            return RedirectToAction("Index", "Listings"); ;
+            return RedirectToAction("Index", "Listings");
         }
 
 
@@ -259,7 +261,7 @@ namespace RealEstateExample.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<Listing> GetListings()
+      /*  private IEnumerable<Listing> GetListings()
         {
             return new List<Listing>
             {
@@ -269,7 +271,7 @@ namespace RealEstateExample.Controllers
                    new Listing {Id = 4, Name = "Expensive House 4",BuildYear=1990,  Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."}
             };
         }
-
+        */
     }
 
 }

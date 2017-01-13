@@ -17,13 +17,8 @@
 @using (Html.BeginForm("Save", "ListingScheduleTypes"))
 {
     <div class="form-group">
-        @Html.LabelFor(c => c.ListingScheduleType.Id)
-        @Html.TextBoxFor(c => c.ListingScheduleType.Id, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(c => c.ListingScheduleType.Cost)
-        @Html.TextAreaFor(c => c.ListingScheduleType.Cost, new { @class = "form-control" })
+        @Html.TextBoxFor(c => c.ListingScheduleType.Cost, new { @class = "form-control" })
     </div>
 
     <div class="form-group">

@@ -26,7 +26,7 @@ namespace RealEstateExample.Controllers
             _context.Dispose();
         }
 
-        // GET: Realtors
+        // GET: ListingScheduleTypes
         public ActionResult Index()
         {
             // realtors == null || realtors.Count()==0
@@ -34,26 +34,20 @@ namespace RealEstateExample.Controllers
             try
             {
                 var types = _context.ListingScheduleTypes.ToList();
-                //var realtorsList2 = _context.Realtors.Include();
-
+    
                 return View(types);
-
-                /* var viewModel = new RealtorsViewModel
-                 {
-                     Realtors = realtorsList
-                 };
-                 return View(viewModel);*/
             }
             catch (InvalidCastException e)
             {
                 Debug.WriteLine("Debug: {0}", e.Message);
-                var types2 = new List<ListingScheduleType> { };
+
+                var types2 = new List<ListingScheduleType> ();
                 return View(types2);
             }
 
         }
 
-        // GET: Realtors/Details/5
+        // GET: ListingScheduleTypes/Details/5
         public ActionResult Details(int id)
         {
             try
@@ -75,44 +69,22 @@ namespace RealEstateExample.Controllers
 
                 var viewModel2 = new ListingScheduleTypeViewModel
                 {
-                    ListingScheduleType = new ListingScheduleType() { }
+                    ListingScheduleType = new ListingScheduleType()
                 };
                 return View(viewModel2);
             }
         }
 
 
-        // GET: Realtors/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: Realtors/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-        // GET: Realtors/Delete/5
+        // GET: ListingScheduleTypes/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         /// <summary>
-        /// POST: Realtors/Delete/5
+        /// POST: ListingScheduleTypes/Delete/5
         /// </summary>
         /// <param name="id"></param>
         /// <param name="collection"></param>
@@ -133,24 +105,45 @@ namespace RealEstateExample.Controllers
         }
 
 
+        /*    // GET: ListingScheduleTypes/Create
+            public ActionResult Create()
+            {
+                return View();
+            }
+
+            // POST: ListingScheduleTypes/Create
+            [HttpPost]
+            public ActionResult Create(FormCollection collection)
+            {
+                try
+                {
+                    // TODO: Add insert logic here
+
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+            */
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public ActionResult New()
         {
-            var scheduleTypes = _context.ListingScheduleTypes.ToList();
-
-            var viewModel = new RealtorViewModel()
+            var viewModel = new ListingScheduleTypeViewModel()
             {
-                Realtor = new Realtor() { }
+                ListingScheduleType = new ListingScheduleType()
             };
 
             return View("Edit", viewModel);
         }
 
 
-        // POST: Realtors/Edit/5
+        // POST: ListingScheduleTypes/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -167,13 +160,13 @@ namespace RealEstateExample.Controllers
         }
 
         /// <summary>
-        /// GET: Realtors/Edit/5
+        /// GET: ListingScheduleTypes/Edit/5
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
-            var type = _context.ListingScheduleTypes.SingleOrDefault(r => r.Id == Id);
+            var type = _context.ListingScheduleTypes.SingleOrDefault(r => r.Id == id);
 
             if (type == null)
                 return HttpNotFound();
@@ -203,7 +196,7 @@ namespace RealEstateExample.Controllers
 
                 try
                 {
-                    typeInDb.Id = viewModel.ListingScheduleType.Id;
+                 //   typeInDb.Id = viewModel.ListingScheduleType.Id;
                     typeInDb.Cost = viewModel.ListingScheduleType.Cost;
                     typeInDb.DiscountRate = viewModel.ListingScheduleType.DiscountRate;
                 }
@@ -222,8 +215,12 @@ namespace RealEstateExample.Controllers
             {
                 Debug.WriteLine(ex);
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
-            return RedirectToAction("Index", "Realtors"); ;
+            return RedirectToAction("Index", "ListingScheduleTypes");
         }
 
 

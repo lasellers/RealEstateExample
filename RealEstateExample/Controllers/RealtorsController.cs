@@ -34,8 +34,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 // var realtors = GetRealtors();
-                // var realtors = _context.Realtors;
-
+         
                 var realtorsList = _context.Realtors.ToList();
                 //var realtorsList2 = _context.Realtors.Include();
 
@@ -50,7 +49,8 @@ namespace RealEstateExample.Controllers
             catch (InvalidCastException e)
             {
                 Debug.WriteLine("Debug: {0}", e.Message);
-                var realtors2 = new List<Realtor> { };
+
+                var realtors2 = new List<Realtor>();
                 return View(realtors2);
             }
 
@@ -91,7 +91,7 @@ namespace RealEstateExample.Controllers
         }
 
 
-        // GET: Realtors/Create
+      /*  // GET: Realtors/Create
         public ActionResult Create()
         {
             return View();
@@ -112,10 +112,7 @@ namespace RealEstateExample.Controllers
                 return View();
             }
         }
-
-
-
-
+        */
 
         // GET: Realtors/Delete/5
         public ActionResult Delete(int id)
@@ -155,9 +152,8 @@ namespace RealEstateExample.Controllers
 
             var viewModel = new RealtorViewModel()
             {
-                Realtor = new Realtor() { }
+                Realtor = new Realtor()
             };
-
             return View("Edit", viewModel);
         }
 
@@ -226,9 +222,6 @@ namespace RealEstateExample.Controllers
                     realtorInDb.Description = viewModel.Realtor.Description;
                     realtorInDb.Phone = viewModel.Realtor.Phone;
                     realtorInDb.Address = viewModel.Realtor.Address;
-                    // realtorInDb.Created = viewModel.Realtor.Created;
-                    // realtorInDb.GenreId = viewModel.Realtor.GenreId;
-                    // realtorInDb.NumberInStock = viewModel.Realtor.NumberInStock;
                 }
                 catch (NullReferenceException ex)
                 {
@@ -245,15 +238,19 @@ namespace RealEstateExample.Controllers
             {
                 Debug.WriteLine(ex);
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
-            return RedirectToAction("Index", "Realtors"); ;
+            return RedirectToAction("Index", "Realtors");
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<Realtor> GetRealtors()
+        /*private IEnumerable<Realtor> GetRealtors()
         {
             return new List<Realtor>
             {
@@ -262,7 +259,7 @@ namespace RealEstateExample.Controllers
                    new Realtor {Id = 3, Name = "Machine Head X", Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."},
                    new Realtor {Id = 4, Name = "Fallout Boy",  Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."}
             };
-        }
+        }*/
 
 
     }
