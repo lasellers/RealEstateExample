@@ -1,0 +1,74 @@
+﻿@model IEnumerable<RealEstateExample.Models.ListingScheduleType>
+@{
+//  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Listing Schedule Types</title>
+</head>
+<body>
+
+    <h2>Listing Schedule Types</h2>
+
+    @Html.ActionLink("New Listing Schedule Type", "New", "Listing Schedule Types", new { @class = "btn btn-primary" })
+
+    @if (!Model.Any())
+    {
+        <p>No schedule types yet</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Cost</th>
+                    <th>DiscountRate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var type in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink("Edit", "Edit", "ListingScheduleTypes", new { id = type.Id, @class = "btn btn-primary" }, null)</td>
+                        <td>@Html.ActionLink(string.Format("{0}", type.Id), "Details", "ListingScheduleTypes", new { id = type.Id }, null)</td>
+                        <td>@type.Cost</td>
+                        <td>@type.DiscountRate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</body>
+</html>
+
+@section scripts
+{
+    <script>
+        // $(#customers".on("click",".js-delete",function() {
+        // var button = $(this);
+        //});
+
+        /*
+        bootbox.confirm("Are you sure?", function (result) {
+            if (result) {
+//               $.ajax({
+            //        url: "",
+                //    method: "delete",
+                //    success: function () {
+                 //   button.parents("tr").removeAll();
+               // })
+            }
+        });
+        */
+
+        ////  toastr.success("Hello");
+        ////  toastr.error("Failed");
+    </script>
+}

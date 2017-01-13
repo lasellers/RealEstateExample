@@ -1,0 +1,95 @@
+﻿@model RealEstateExample.ViewModels.ListingEditViewModel
+@{
+    ViewBag.Title = "Edit";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @if (Model.Listing == null)
+    {
+        <text>New Listing</text>
+    }
+    else
+    {
+        <text>Edit Listing</text>
+    }
+</h2>
+@using (Html.BeginForm("Save", "Listings"))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.Name)
+        @Html.TextBoxFor(c => c.Listing.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.Description)
+        @Html.TextAreaFor(c => c.Listing.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.Address)
+        @Html.TextBoxFor(c => c.Listing.Address, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.Lat)
+        @Html.TextBoxFor(c => c.Listing.Lat, new { @class = "form-control", @type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.Lng)
+        @Html.TextBoxFor(c => c.Listing.Lng, new { @class = "form-control", @type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.Cost)
+        @Html.TextBoxFor(c => c.Listing.Cost, new { @class = "form-control", @type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.BuildYear)
+        @Html.TextBoxFor(c => c.Listing.BuildYear, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.State)
+        @Html.TextBoxFor(c => c.Listing.State, new { @class = "form-control" })
+    </div>
+    @Html.EnumDropDownListFor(
+    c => c.Listing.State,
+    "Select State",
+    new { @class = "form-control" }) @Model.Listing.State
+
+    /*  @Html.DropDownList("State",
+     EnumHelper.GetSelectList(typeof(Listing.State)),
+     "Select Type",
+     new { @class = "form-control" })
+  */
+
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.RealtorId)
+        @Html.TextBoxFor(c => c.Listing.RealtorId, new { @class = "form-control", @type = "number" })
+    </div>
+   /* @Html.EnumDropDownListFor(
+    c => c.Listing.RealtorId,
+    "Select Realtor",
+    new { @class = "form-control" }) @Model.Listing.RealtorId
+    */
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.ListingScheduleType)
+        @Html.TextBoxFor(c => c.Listing.ListingScheduleType, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Listing.ListingScheduleTypeId)
+        @Html.TextBoxFor(c => c.Listing.ListingScheduleTypeId, new { @class = "form-control", @type = "number" })
+    </div>
+  /*  @Html.EnumDropDownListFor(
+    c => c.Listing.ListingScheduleTypeId,
+    "Select Schedule Type",
+    new { @class = "form-control" }) @Model.Listing.ListingScheduleTypeId
+    */
+
+    @Html.HiddenFor(c => c.Listing.Id)
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

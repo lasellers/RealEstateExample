@@ -1,0 +1,72 @@
+﻿@model IEnumerable<RealEstateExample.Models.Realtor>
+@{
+//  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Realtors</title>
+</head>
+<body>
+
+    <h2>Realtors</h2>
+
+    @Html.ActionLink("New Realtor", "New", "Realtors", new { @class = "btn btn-primary" })
+
+    @if (!Model.Any())
+    {
+        <p>No realtors yet</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Realtors</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var realtor in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink("Edit", "Edit", "Realtors", new { id = realtor.Id, @class = "btn btn-primary" }, null)</td>
+                        <td>@Html.ActionLink(realtor.Name, "Details", "Realtors", new { id = realtor.Id }, null)</td>
+                        <td>@realtor.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</body>
+</html>
+
+@section scripts
+{
+    <script>
+        // $(#customers".on("click",".js-delete",function() {
+        // var button = $(this);
+        //});
+
+        /*
+        bootbox.confirm("Are you sure?", function (result) {
+            if (result) {
+//               $.ajax({
+            //        url: "",
+                //    method: "delete",
+                //    success: function () {
+                 //   button.parents("tr").removeAll();
+               // })
+            }
+        });
+        */
+
+        ////  toastr.success("Hello");
+        ////  toastr.error("Failed");
+    </script>
+}

@@ -251,6 +251,7 @@
     <Compile Include="ViewModels\RealtorsViewModel.cs" />
     <Compile Include="ViewModels\RealtorViewModel.cs" />
     <Content Include="Views\ListingScheduleTypes\Delete.cshtml" />
+    <Content Include="readme.md" />
     <None Include="Views\ListingScheduleTypes\Details.cshtml" />
     <Content Include="Views\ListingScheduleTypes\Edit.cshtml" />
   </ItemGroup>

@@ -1,0 +1,26 @@
+﻿@model RealEstateExample.ViewModels.ListingScheduleTypeViewModel
+@{
+    // Layout = null;
+    ViewBag.Title = @Model.ListingScheduleType.Id;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.ListingScheduleType.Id</title>
+</head>
+<body>
+    <h2>@Model.ListingScheduleType.Id</h2>
+    <div>
+
+        <ul>
+            <li>Id: @Model.ListingScheduleType.Id</li>
+            <li>Description: @Model.ListingScheduleType.Cost</li>
+            <li>Phone: @Model.ListingScheduleType.DiscountRate</li>
+        </ul>
+
+    </div>
+</body>
+</html>

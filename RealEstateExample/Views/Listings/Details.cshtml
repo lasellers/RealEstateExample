@@ -1,0 +1,40 @@
+﻿@model RealEstateExample.ViewModels.ListingViewModel
+@{
+    // Layout = null;
+    ViewBag.Title = @Model.Listing.Name;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Listing.Name</title>
+</head>
+<body>
+    <h2>@Model.Listing.Name</h2>
+    <div>
+
+        <ul>
+            <li>Id: @Model.Listing.Id</li>
+            <li>Created: @String.Format("{0:dddd, MMMM d, yyyy}", Model.Listing.Created)</li>
+            <li>Name: @Model.Listing.Name</li>
+            <li>Description: @Model.Listing.Description</li>
+            <li>Phone: @Model.Listing.Phone</li>
+            <li>Address: @Model.Listing.Address</li>
+
+            <li>Lat: @Model.Listing.Lat</li>
+            <li>Lng: @Model.Listing.Lng</li>
+            <li>Cost: @Model.Listing.Cost</li>
+            <li>BuildYear: @Model.Listing.BuildYear</li>
+            <li>Created: @Model.Listing.Created</li>
+
+            <li>RealtorId: @Model.Listing.RealtorId</li>
+            <li>State: @Model.Listing.State</li>
+            <li>ListingScheduleType: @Model.Listing.ListingScheduleType</li>
+            <li>ListingScheduleTypeId: @Model.Listing.ListingScheduleTypeId</li>
+        </ul>
+
+    </div>
+</body>
+</html>

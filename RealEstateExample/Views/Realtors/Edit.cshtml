@@ -1,0 +1,43 @@
+﻿@model RealEstateExample.ViewModels.RealtorViewModel
+@{
+    ViewBag.Title = "Edit";
+   // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @if (Model.Realtor == null)
+    {
+        <text>New Realtor</text>
+    }
+    else
+    {
+        <text>Edit Realtor</text>
+    }
+</h2>
+@using (Html.BeginForm("Save", "Realtors"))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Realtor.Name)
+        @Html.TextBoxFor(c => c.Realtor.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Realtor.Description)
+        @Html.TextBoxFor(c => c.Realtor.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Realtor.Phone)
+        @Html.TextBoxFor(c => c.Realtor.Phone, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Realtor.Address)
+        @Html.TextBoxFor(c => c.Realtor.Address, new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(c => c.Realtor.Id)
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
