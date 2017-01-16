@@ -32,7 +32,15 @@ namespace RealEstateExample.Migrations
 
 
                 context.Realtors.AddOrUpdate(
-                    //   p => p.Id,
+                     //   p => p.Id,
+                     new Realtor()
+                     {
+                         Id = 0,
+                         Name = "No Realtor",
+                         Description = "No Realtor",
+                         Phone = "",
+                         Address = ""
+                     },
                     new Realtor()
                     {
                         Id = 1,
@@ -68,9 +76,15 @@ namespace RealEstateExample.Migrations
                 );
 
 
-
                 context.Listings.AddOrUpdate(
-                    //  p => p.Id,
+                     //  p => p.Id,
+                     new Listing()
+                     {
+                         Id = 0,
+                         Name = "No House",
+                         RealtorId = 0,
+                         ListingScheduleTypeId = 0
+                     },
                     new Listing()
                     {
                         Id = 1,

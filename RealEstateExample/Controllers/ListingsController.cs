@@ -121,13 +121,30 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         public ActionResult New()
         {
-            var scheduleTypes = _context.ListingScheduleTypes.ToList();
+          
+            var realtors = _context.Realtors.ToList();
+            var types = _context.ListingScheduleTypes.ToList();
+            var photographs = _context.ListingPhotographs.ToList();
+
+            var slRealtors = GetSelectListRealtors(realtors);
+            var slTypes = GetSelectListListingScheduleTypes(types);
+            var slPhotographs = GetSelectListingPhotographs(photographs);
 
             var viewModel = new ListingEditViewModel()
             {
-                Listing = new Listing() /*,
-                ListingScheduleTypes = scheduleTypes*/
+                Listing = new Listing()
+                {
+                    RealtorId = 0,
+                    ListingScheduleTypeId = 0
+                },
+                Realtors = realtors,
+                ListingScheduleTypes = types,
+                ListingPhotographs = photographs,
+                SelectListRealtors = slRealtors,
+                SelectListListingScheduleTypes = slTypes,
+                SelectListListingPhotographs = slPhotographs
             };
+
             return View("Edit", viewModel);
         }
 
