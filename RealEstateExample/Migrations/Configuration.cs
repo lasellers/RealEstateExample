@@ -33,10 +33,10 @@ new Listing() { Id = 4, Name = "House D" }
 
             context.Realtors.AddOrUpdate(
                //   p => p.Id,
-new Realtor() { Id = 1, Name = "Lewis Sellers" },
-new Realtor() { Id = 2, Name = "John Locke" },
-new Realtor() { Id = 3, Name = "Ricardo Jaffe" },
-new Realtor() { Id = 4, Name = "Phillip Washington" }
+new Realtor() { Id = 1, Name = "Lewis Sellers", Description = "A Realtor", Phone = "555-555-5555", Address = "1313 MockingBird Lane"},
+new Realtor() { Id = 2, Name = "John Locke", Description = "A Realtor 2", Phone = "555-555-5556", Address = "1314 MockingBird Lane" },
+new Realtor() { Id = 3, Name = "Ricardo Jaffe", Description = "A Realtor 3", Phone = "555-555-5557", Address = "1315 MockingBird Lane" },
+new Realtor() { Id = 4, Name = "Phillip Washington", Description = "A Realtor 4", Phone = "555-555-5558", Address = "1316 MockingBird Lane" }
 );
 
         }

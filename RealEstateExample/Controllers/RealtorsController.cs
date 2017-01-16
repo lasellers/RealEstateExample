@@ -91,33 +91,48 @@ namespace RealEstateExample.Controllers
         }
 
 
-      /*  // GET: Realtors/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        /*  // GET: Realtors/Create
+          public ActionResult Create()
+          {
+              return View();
+          }
 
-        // POST: Realtors/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+          // POST: Realtors/Create
+          [HttpPost]
+          public ActionResult Create(FormCollection collection)
+          {
+              try
+              {
+                  // TODO: Add insert logic here
+
+                  return RedirectToAction("Index");
+              }
+              catch
+              {
+                  return View();
+              }
+          }
+          */
+
+        // GET: Realtors/Delete/5
+        [HttpGet]
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+              //  var id32 = Convert.ToByte(id);
+                var realtor = new Realtor { Id = id };
+                _context.Realtors.Attach(realtor);
+                _context.Realtors.Remove(realtor);
+                _context.SaveChanges();
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                Debug.WriteLine(ex.Message);
+                return View(id);
             }
-        }
-        */
 
-        // GET: Realtors/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+            return RedirectToAction("Index", "Realtors");
         }
 
         /// <summary>

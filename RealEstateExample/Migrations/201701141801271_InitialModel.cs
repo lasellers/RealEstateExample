@@ -3,7 +3,7 @@ namespace RealEstateExample.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialSetup : DbMigration
+    public partial class InitialModel : DbMigration
     {
         public override void Up()
         {
@@ -46,7 +46,7 @@ namespace RealEstateExample.Migrations
                 "dbo.ListingScheduleTypes",
                 c => new
                     {
-                        Id = c.Byte(nullable: false),
+                        Id = c.Byte(nullable: false, identity: true),
                         Cost = c.Single(),
                         DiscountRate = c.Int(),
                     })

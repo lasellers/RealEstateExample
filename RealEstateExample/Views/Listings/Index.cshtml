@@ -38,6 +38,7 @@
                         <td>@Html.ActionLink("Edit", "Edit", "Listings", new { id = listing.Id, @class = "btn btn-primary" }, null)</td>
                         <td>@Html.ActionLink(listing.Name, "Details", "Listings", new { id = listing.Id }, null)</td>
                         <td>@listing.Description</td>
+                        <td>@Html.ActionLink("Delete", "Delete", "Listings", new { id = listing.Id }, null)</td>
                     </tr>
                 }
             </tbody>

@@ -78,9 +78,24 @@ namespace RealEstateExample.Controllers
 
 
         // GET: ListingScheduleTypes/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var id32 = Convert.ToByte(id);
+                var type = new ListingScheduleType {Id = id32};
+                _context.ListingScheduleTypes.Attach(type);
+                _context.ListingScheduleTypes.Remove(type);
+                _context.SaveChanges();
+            } 
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return View(id);
+            }
+
+            return RedirectToAction("Index", "ListingScheduleTypes");
         }
 
         /// <summary>

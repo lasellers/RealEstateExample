@@ -39,6 +39,7 @@
                         <td>@Html.ActionLink(string.Format("{0}", type.Id), "Details", "ListingScheduleTypes", new { id = type.Id }, null)</td>
                         <td>@type.Cost</td>
                         <td>@type.DiscountRate</td>
+                        <td>@Html.ActionLink("Delete", "Delete", "ListingScheduleTypes", new { id = type.Id }, null)</td>
                     </tr>
                 }
             </tbody>
