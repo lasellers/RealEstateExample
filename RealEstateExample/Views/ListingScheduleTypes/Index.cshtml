@@ -35,7 +35,7 @@
                 @foreach (var type in Model)
                 {
                     <tr>
-                        <td>@Html.ActionLink("Edit", "Edit", "ListingScheduleTypes", new { id = type.Id, @class = "btn btn-primary" }, null)</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "ListingScheduleTypes", new { id = type.Id }, new { @class = "btn btn-primary" })</td>
                         <td>@Html.ActionLink(string.Format("{0}", type.Id), "Details", "ListingScheduleTypes", new { id = type.Id }, null)</td>
                         <td>@type.Cost</td>
                         <td>@type.DiscountRate</td>

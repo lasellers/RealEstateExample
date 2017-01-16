@@ -120,28 +120,7 @@ namespace RealEstateExample.Controllers
         }
 
 
-        /*    // GET: ListingScheduleTypes/Create
-            public ActionResult Create()
-            {
-                return View();
-            }
-
-            // POST: ListingScheduleTypes/Create
-            [HttpPost]
-            public ActionResult Create(FormCollection collection)
-            {
-                try
-                {
-                    // TODO: Add insert logic here
-
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
-            }
-            */
+      
 
         /// <summary>
         /// 
@@ -198,6 +177,7 @@ namespace RealEstateExample.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult Save(ListingScheduleTypeViewModel viewModel)
         {
             if (viewModel.ListingScheduleType.Id == 0)
@@ -235,6 +215,7 @@ namespace RealEstateExample.Controllers
                 Debug.WriteLine(ex);
             }
 
+            //return RedirectToAction("Edit", "ListingScheduleTypes", new { Id = viewModel.ListingScheduleType.Id });
             return RedirectToAction("Index", "ListingScheduleTypes");
         }
 

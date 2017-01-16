@@ -11,7 +11,9 @@ namespace RealEstateExample.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public byte Id { get; set; }
+
         public float? Cost { get; set; }
+
         [DisplayName("Discount Rate")]
         public int? DiscountRate { get; set; }
     }

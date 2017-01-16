@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -10,11 +12,11 @@ using System.Diagnostics;
 
 namespace RealEstateExample.Controllers
 {
-    public class ListingsController : Controller
+    public class ListingPhotographsController : Controller
     {
         private ApplicationDbContext _context;
 
-        public ListingsController()
+        public ListingPhotographsController()
         {
             _context = new ApplicationDbContext();
         }
@@ -84,7 +86,7 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-                var listing = new Listing {Id = id};
+                var listing = new Listing { Id = id };
                 _context.Listings.Attach(listing);
                 _context.Listings.Remove(listing);
                 _context.SaveChanges();
@@ -95,7 +97,7 @@ namespace RealEstateExample.Controllers
                 return View(id);
             }
 
-            return RedirectToAction("Index", "Listings");
+            return RedirectToAction("Index", "ListingPhotographs");
         }
 
         // POST: Listings/Delete/5
@@ -105,7 +107,7 @@ namespace RealEstateExample.Controllers
               try
               {
                   // TODO: Add delete logic here
-  
+
                   return RedirectToAction("Index");
               }
               catch
@@ -125,8 +127,8 @@ namespace RealEstateExample.Controllers
 
             var viewModel = new ListingEditViewModel()
             {
-                Listing = new Listing() /*,
-                ListingScheduleTypes = scheduleTypes*/
+                Listing = new Listing(),
+                ListingScheduleTypes = scheduleTypes
             };
             return View("Edit", viewModel);
         }
@@ -137,20 +139,20 @@ namespace RealEstateExample.Controllers
         /// <param name="id"></param>
         /// <param name="collection"></param>
         /// <returns></returns>
-        /*  [HttpPost]
-          public ActionResult Edit(int id, FormCollection collection)
-          {
-              try
-              {
-                  // TODO: Add update logic here
-  
-                  return RedirectToAction("Index");
-              }
-              catch
-              {
-                  return View();
-              }
-          }*/
+      /*  [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }*/
 
         /// <summary>
         /// GET: Listing/Edit/5
@@ -168,19 +170,12 @@ namespace RealEstateExample.Controllers
             var types = _context.ListingScheduleTypes.ToList();
             var photographs = _context.ListingPhotographs.ToList();
 
-            var slRealtors = GetSelectListRealtors(realtors);
-            var slTypes = GetSelectListListingScheduleTypes(types);
-            var slPhotographs = GetSelectListingPhotographs(photographs);
-
             var viewModel = new ListingEditViewModel()
             {
                 Listing = listing,
                 Realtors = realtors,
                 ListingScheduleTypes = types,
-                ListingPhotographs = photographs,
-                SelectListRealtors = slRealtors,
-                SelectListListingScheduleTypes = slTypes,
-                SelectListListingPhotographs = slPhotographs
+                ListingPhotographs = photographs
             };
             return View("Edit", viewModel);
         }
@@ -241,115 +236,9 @@ namespace RealEstateExample.Controllers
                 Debug.WriteLine(ex);
             }
 
-            //return RedirectToAction("Edit", "Listings", new { Id = viewModel.Listing.Id });
             return RedirectToAction("Index", "Listings");
         }
 
-
-
-        /// <summary>
-        /// Note: SelectListItem is predefined.
-        /// </summary>
-        /// <param name="elements"></param>
-        /// <returns></returns>
-        private IEnumerable<SelectListItem> GetSelectListItems(List<string> elements)
-        {
-            // Create an empty list to hold result of the operation
-            var selectList = new List<SelectListItem>();
-
-            // For each string in the 'elements' variable, create a new SelectListItem object
-            // that has both its Value and Text properties set to a particular value.
-            // This will result in MVC rendering each item as:
-            //     <option value="State Name">State Name</option>
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = element,
-                    Text = element
-                });
-            }
-
-            return selectList;
-        }
-
-
-        /// <summary>
-        /// Note: SelectListItem is predefined.
-        /// </summary>
-        /// <param name="elements"></param>
-        /// <returns></returns>
-        private IEnumerable<SelectListItem> GetSelectListRealtors(List<Realtor> elements)
-        {
-            // Create an empty list to hold result of the operation
-            var selectList = new List<SelectListItem>();
-
-            // For each string in the 'elements' variable, create a new SelectListItem object
-            // that has both its Value and Text properties set to a particular value.
-            // This will result in MVC rendering each item as:
-            //     <option value="State Name">State Name</option>
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = element.Id.ToString(),
-                    Text = element.Name
-                });
-            }
-
-            return selectList;
-        }
-
-        /// <summary>
-        /// Note: SelectListItem is predefined.
-        /// </summary>
-        /// <param name="elements"></param>
-        /// <returns></returns>
-        private IEnumerable<SelectListItem> GetSelectListListingScheduleTypes(List<ListingScheduleType> elements)
-        {
-            // Create an empty list to hold result of the operation
-            var selectList = new List<SelectListItem>();
-
-            // For each string in the 'elements' variable, create a new SelectListItem object
-            // that has both its Value and Text properties set to a particular value.
-            // This will result in MVC rendering each item as:
-            //     <option value="State Name">State Name</option>
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = element.Id.ToString(),
-                    Text = element.Cost.ToString()
-                });
-            }
-
-            return selectList;
-        }
-
-        /// <summary>
-        /// Note: SelectListItem is predefined.
-        /// </summary>
-        /// <param name="elements"></param>
-        /// <returns></returns>
-        private IEnumerable<SelectListItem> GetSelectListingPhotographs(List<ListingPhotograph> elements)
-        {
-            // Create an empty list to hold result of the operation
-            var selectList = new List<SelectListItem>();
-
-            // For each string in the 'elements' variable, create a new SelectListItem object
-            // that has both its Value and Text properties set to a particular value.
-            // This will result in MVC rendering each item as:
-            //     <option value="State Name">State Name</option>
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = element.Id.ToString(),
-                    Text = element.Name
-                });
-            }
-
-            return selectList;
-        }
     }
+
 }

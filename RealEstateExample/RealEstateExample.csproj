@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\PropertiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListingPhotographsController.cs" />
     <Compile Include="Controllers\ListingScheduleTypesController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -225,9 +226,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701141801271_InitialModel.cs" />
-    <Compile Include="Migrations\201701141801271_InitialModel.Designer.cs">
-      <DependentUpon>201701141801271_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\201701161958539_InitialModelsRework.cs" />
+    <Compile Include="Migrations\201701161958539_InitialModelsRework.Designer.cs">
+      <DependentUpon>201701161958539_InitialModelsRework.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -564,8 +565,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701141801271_InitialModel.resx">
-      <DependentUpon>201701141801271_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701161958539_InitialModelsRework.resx">
+      <DependentUpon>201701161958539_InitialModelsRework.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

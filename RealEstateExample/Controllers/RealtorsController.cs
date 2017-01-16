@@ -32,9 +32,7 @@ namespace RealEstateExample.Controllers
             // realtors == null || realtors.Count()==0
 
             try
-            {
-                // var realtors = GetRealtors();
-         
+            {       
                 var realtorsList = _context.Realtors.ToList();
                 //var realtorsList2 = _context.Realtors.Include();
 
@@ -61,8 +59,6 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-
-                //var realtor = GetRealtors().SingleOrDefault(c => c.Id == id);
                 var realtor = _context.Realtors.SingleOrDefault(c => c.Id == id);
 
                 if (realtor == null)
@@ -89,30 +85,6 @@ namespace RealEstateExample.Controllers
                 //return View(listings2);
             }
         }
-
-
-        /*  // GET: Realtors/Create
-          public ActionResult Create()
-          {
-              return View();
-          }
-
-          // POST: Realtors/Create
-          [HttpPost]
-          public ActionResult Create(FormCollection collection)
-          {
-              try
-              {
-                  // TODO: Add insert logic here
-
-                  return RedirectToAction("Index");
-              }
-              catch
-              {
-                  return View();
-              }
-          }
-          */
 
         // GET: Realtors/Delete/5
         [HttpGet]
@@ -141,7 +113,7 @@ namespace RealEstateExample.Controllers
         /// <param name="id"></param>
         /// <param name="collection"></param>
         /// <returns></returns>
-        [HttpPost]
+       /* [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
@@ -154,7 +126,7 @@ namespace RealEstateExample.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
 
         /// <summary>
@@ -180,7 +152,7 @@ namespace RealEstateExample.Controllers
          }*/
 
         // POST: Realtors/Edit/5
-        [HttpPost]
+     /*   [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -193,7 +165,7 @@ namespace RealEstateExample.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
         /// <summary>
         /// GET: Realtors/Edit/5
@@ -219,6 +191,7 @@ namespace RealEstateExample.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult Save(RealtorViewModel viewModel)
         {
             if (viewModel.Realtor.Id == 0)
@@ -258,24 +231,9 @@ namespace RealEstateExample.Controllers
                 Debug.WriteLine(ex);
             }
 
+            //return RedirectToAction("Edit", "Realtors", new {Id = viewModel.Realtor.Id });
             return RedirectToAction("Index", "Realtors");
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        /*private IEnumerable<Realtor> GetRealtors()
-        {
-            return new List<Realtor>
-            {
-                   new Realtor {Id = 1, Name = "Rascal", Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."},
-                   new Realtor {Id = 2, Name = "Muffin Head", Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."},
-                   new Realtor {Id = 3, Name = "Machine Head X", Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."},
-                   new Realtor {Id = 4, Name = "Fallout Boy",  Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed condimentum enim. Mauris eleifend pretium blandit. Nullam eleifend in nibh ac accumsan. Sed ac arcu ac velit fringilla rhoncus. Nunc iaculis malesuada justo, vitae finibus lorem aliquam nec. Cras maximus enim malesuada, molestie augue eget, viverra nulla. Nulla sollicitudin pharetra nibh quis ultricies. In faucibus ex id ultricies fringilla. Ut imperdiet quam nec justo volutpat dictum. Donec convallis libero in sem molestie, in vehicula lectus consequat. Sed eros purus, eleifend vel ligula eget, dictum imperdiet metus. Duis eu congue ipsum. Curabitur eu porta nulla."}
-            };
-        }*/
-
 
     }
 }

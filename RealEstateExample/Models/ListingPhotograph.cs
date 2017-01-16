@@ -14,7 +14,6 @@ namespace RealEstateExample.Models
         public String Name { get; set; }
         public String Description { get; set; }
         public DateTime? Created { get; set; }
-        public String S3 { get; set; }
         public int? ListingId { get; set; }
       //  public int RealtorId { get; set; }
     }

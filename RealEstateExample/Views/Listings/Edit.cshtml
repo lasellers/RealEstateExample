@@ -51,45 +51,104 @@
 
     <div class="form-group">
         @Html.LabelFor(c => c.Listing.State)
-        @Html.TextBoxFor(c => c.Listing.State, new { @class = "form-control" })
-    </div>
-    @Html.EnumDropDownListFor(
+        @Html.EnumDropDownListFor(
     c => c.Listing.State,
-    "Select State",
-    new { @class = "form-control" }) @Model.Listing.State
-
-    /*  @Html.DropDownList("State",
-     EnumHelper.GetSelectList(typeof(Listing.State)),
-     "Select Type",
-     new { @class = "form-control" })
-  */
-
+    "- Select State -",
+    new { @class = "form-control" })
+    @Html.ValidationMessageFor(c => c.Listing.State)
+</div>
 
     <div class="form-group">
         @Html.LabelFor(c => c.Listing.RealtorId)
-        @Html.TextBoxFor(c => c.Listing.RealtorId, new { @class = "form-control", @type = "number" })
+        @Html.DropDownListFor(
+            c => c.Listing.RealtorId,
+            Model.SelectListRealtors,
+            "- Select Realtor -",
+            new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Listing.RealtorId)
     </div>
-   /* @Html.EnumDropDownListFor(
-    c => c.Listing.RealtorId,
-    "Select Realtor",
-    new { @class = "form-control" }) @Model.Listing.RealtorId
-    */
-
-    <div class="form-group">
-        @Html.LabelFor(c => c.Listing.ListingScheduleType)
-        @Html.TextBoxFor(c => c.Listing.ListingScheduleType, new { @class = "form-control" })
-    </div>
+ 
     <div class="form-group">
         @Html.LabelFor(c => c.Listing.ListingScheduleTypeId)
-        @Html.TextBoxFor(c => c.Listing.ListingScheduleTypeId, new { @class = "form-control", @type = "number" })
-    </div>
-  /*  @Html.EnumDropDownListFor(
-    c => c.Listing.ListingScheduleTypeId,
-    "Select Schedule Type",
-    new { @class = "form-control" }) @Model.Listing.ListingScheduleTypeId
-    */
+        @Html.DropDownListFor(
+            c => c.Listing.ListingScheduleTypeId,
+            Model.SelectListListingScheduleTypes,
+            "- Select Listing Schedule Type -",
+            new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Listing.ListingScheduleTypeId)
+      </div>
 
     @Html.HiddenFor(c => c.Listing.Id)
 
     <button type="submit" class="btn btn-primary">Save</button>
 }
+
+@*
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Cost</th>
+            <th>Discount Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var type in Model.ListingScheduleTypes)
+        {
+            <tr>
+                <td>@Html.ActionLink("Edit", "Edit", "ListingScheduleTypes", new { id = type.Id, @class = "btn btn-primary" }, null)</td>
+                <td>@Html.ActionLink(string.Format("{0}", type.Id), "Details", "ListingScheduleTypes", new { id = type.Id }, null)</td>
+                <td>@type.Cost</td>
+                <td>@type.DiscountRate</td>
+                <td>@Html.ActionLink("Delete", "Delete", "ListingScheduleTypes", new { id = type.Id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Realtors</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var realtor in Model.Realtors)
+        {
+            <tr>
+                <td>@Html.ActionLink("Edit", "Edit", "Realtors", new { id = realtor.Id, @class = "btn btn-primary" }, null)</td>
+                <td>@Html.ActionLink(realtor.Name, "Details", "Realtors", new { id = realtor.Id }, null)</td>
+                <td>@realtor.Description</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Realtors", new { id = realtor.Id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Listing Photographs</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var photograph in Model.ListingPhotographs)
+    {
+        <tr>
+            <td>@Html.ActionLink("Edit", "Edit", "ListingPhotographs", new { id = photograph.Id, @class = "btn btn-primary" }, null)</td>
+            <td>@Html.ActionLink(photograph.Name, "Details", "ListingPhotographs", new { id = photograph.Id }, null)</td>
+            <td>@photograph.Description</td>
+            <td>@Html.ActionLink("Delete", "Delete", "ListingPhotographs", new { id = photograph.Id }, null)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+*@

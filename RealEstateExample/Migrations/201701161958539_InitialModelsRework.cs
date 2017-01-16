@@ -3,7 +3,7 @@ namespace RealEstateExample.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialModel : DbMigration
+    public partial class InitialModelsRework : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,6 @@ namespace RealEstateExample.Migrations
                         Name = c.String(),
                         Description = c.String(),
                         Created = c.DateTime(),
-                        S3 = c.String(),
                         ListingId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -27,20 +26,18 @@ namespace RealEstateExample.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(maxLength: 120),
                         Description = c.String(),
-                        Address = c.String(),
+                        Address = c.String(maxLength: 220),
                         Phone = c.String(maxLength: 132),
                         Lat = c.Single(),
                         Lng = c.Single(),
                         Cost = c.Int(),
                         BuildYear = c.Short(),
                         Created = c.DateTime(),
-                        RealtorId = c.Int(nullable: false),
                         State = c.Int(),
-                        ListingScheduleTypeId = c.Byte(),
+                        RealtorId = c.Int(nullable: false),
+                        ListingScheduleTypeId = c.Byte(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.ListingScheduleTypes", t => t.ListingScheduleTypeId)
-                .Index(t => t.ListingScheduleTypeId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.ListingScheduleTypes",
@@ -141,14 +138,12 @@ namespace RealEstateExample.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Listings", "ListingScheduleTypeId", "dbo.ListingScheduleTypes");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Listings", new[] { "ListingScheduleTypeId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
