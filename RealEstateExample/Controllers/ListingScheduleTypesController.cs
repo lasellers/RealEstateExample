@@ -41,8 +41,7 @@ namespace RealEstateExample.Controllers
             {
                 Debug.WriteLine("Debug: {0}", e.Message);
 
-                var types2 = new List<ListingScheduleType> ();
-                return View(types2);
+                return View(new List<ListingScheduleType>());
             }
 
         }
@@ -95,7 +94,10 @@ namespace RealEstateExample.Controllers
                 return View(id);
             }
 
-            return RedirectToAction("Index", "ListingScheduleTypes");
+            return RedirectToAction("Index", "ListingScheduleTypes", new
+            {
+                Success = string.Format("List Schedule Type {0} deleted", id)
+            });
         }
 
         /// <summary>
@@ -216,7 +218,10 @@ namespace RealEstateExample.Controllers
             }
 
             //return RedirectToAction("Edit", "ListingScheduleTypes", new { Id = viewModel.ListingScheduleType.Id });
-            return RedirectToAction("Index", "ListingScheduleTypes");
+            return RedirectToAction("Index", "ListingScheduleTypes", new
+            {
+                Success = string.Format("Listing Schedule Type {0} saved", viewModel.ListingScheduleType.Id)
+            });
         }
 
 

@@ -15,7 +15,8 @@ namespace RealEstateExample
                       "~/Scripts/respond.js",
                       "~/Scripts/datatables/jquery.datatables.js",
                       "~/Scripts/toastr.js",
-                      "~/Scripts/datatables.bootstrap.js"
+                      "~/Scripts/datatables.bootstrap.js",
+                      "~/Content/Site.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

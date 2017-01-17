@@ -43,14 +43,12 @@ namespace RealEstateExample.Models
         [Required]
         [DisplayName("Realtor #")]
         public int RealtorId { get; set; } /* convention: Realtor.id foreign key */
-  
+        //public Realtor Realtor { get; set; }
+
         [Required]
         [DisplayName("Listing Schedule Type")]
         public byte ListingScheduleTypeId { get; set; } /* convention: ListingScheduleType.id foreign key */
-       
-        // automatic join
-        // public Realtor Realtor { get; set; }
-        // public ListingScheduleType ListingScheduleType { get; set; }
+       // public ListingScheduleType ListingScheduleType { get; set; }
 
     }
 }

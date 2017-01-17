@@ -97,7 +97,10 @@ namespace RealEstateExample.Controllers
                 return View(id);
             }
 
-            return RedirectToAction("Index", "ListingPhotographs");
+            return RedirectToAction("Index", "ListingPhotographs", new
+            {
+                Success = string.Format("Listing photograph {0} deleted", id)
+            });
         }
 
         // POST: Listings/Delete/5
@@ -139,7 +142,7 @@ namespace RealEstateExample.Controllers
         /// <param name="id"></param>
         /// <param name="collection"></param>
         /// <returns></returns>
-      /*  [HttpPost]
+       [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -152,7 +155,7 @@ namespace RealEstateExample.Controllers
             {
                 return View();
             }
-        }*/
+        }
 
         /// <summary>
         /// GET: Listing/Edit/5
@@ -236,7 +239,10 @@ namespace RealEstateExample.Controllers
                 Debug.WriteLine(ex);
             }
 
-            return RedirectToAction("Index", "Listings");
+            return RedirectToAction("Index", "Listings", new
+            {
+                Success = string.Format("Listing photograph {0} saved", viewModel.Listing.Id)
+            });
         }
 
     }

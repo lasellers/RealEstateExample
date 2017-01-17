@@ -234,6 +234,14 @@
     <Compile Include="Migrations\201701162254506_InitialModelsRework1.Designer.cs">
       <DependentUpon>201701162254506_InitialModelsRework1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701162317330_InitialModelsRework2.cs" />
+    <Compile Include="Migrations\201701162317330_InitialModelsRework2.Designer.cs">
+      <DependentUpon>201701162317330_InitialModelsRework2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701162327145_InitialModelsRework3.cs" />
+    <Compile Include="Migrations\201701162327145_InitialModelsRework3.Designer.cs">
+      <DependentUpon>201701162327145_InitialModelsRework3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -251,6 +259,7 @@
     <Compile Include="ViewModels\ListingViewModel.cs" />
     <Compile Include="ViewModels\RealtorsViewModel.cs" />
     <Compile Include="ViewModels\RealtorViewModel.cs" />
+    <Content Include="Content\Site.js" />
     <Content Include="Views\ListingScheduleTypes\Delete.cshtml" />
     <Content Include="readme.md" />
     <None Include="Views\ListingScheduleTypes\Details.cshtml" />
@@ -574,6 +583,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701162254506_InitialModelsRework1.resx">
       <DependentUpon>201701162254506_InitialModelsRework1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701162317330_InitialModelsRework2.resx">
+      <DependentUpon>201701162317330_InitialModelsRework2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701162327145_InitialModelsRework3.resx">
+      <DependentUpon>201701162327145_InitialModelsRework3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

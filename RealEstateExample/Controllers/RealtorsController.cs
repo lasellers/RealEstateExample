@@ -48,8 +48,7 @@ namespace RealEstateExample.Controllers
             {
                 Debug.WriteLine("Debug: {0}", e.Message);
 
-                var realtors2 = new List<Realtor>();
-                return View(realtors2);
+                return View(new List<Realtor>());
             }
 
         }
@@ -77,12 +76,9 @@ namespace RealEstateExample.Controllers
 
                 var viewModel2 = new RealtorViewModel
                 {
-                    Realtor = new Realtor() { }
+                    Realtor = new Realtor()
                 };
                 return View(viewModel2);
-
-                //var listings2 = new List<Listing> { };
-                //return View(listings2);
             }
         }
 
@@ -92,7 +88,6 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-              //  var id32 = Convert.ToByte(id);
                 var realtor = new Realtor { Id = id };
                 _context.Realtors.Attach(realtor);
                 _context.Realtors.Remove(realtor);
@@ -104,15 +99,12 @@ namespace RealEstateExample.Controllers
                 return View(id);
             }
 
-            return RedirectToAction("Index", "Realtors");
+            return RedirectToAction("Index", "Realtors", new
+            {
+                Success = string.Format("Realtor {0} deleted", id)
+            });
         }
 
-        /// <summary>
-        /// POST: Realtors/Delete/5
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="collection"></param>
-        /// <returns></returns>
        /* [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -135,8 +127,6 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         public ActionResult New()
         {
-            var scheduleTypes = _context.ListingScheduleTypes.ToList();
-
             var viewModel = new RealtorViewModel()
             {
                 Realtor = new Realtor()
@@ -196,7 +186,7 @@ namespace RealEstateExample.Controllers
         {
             if (viewModel.Realtor.Id == 0)
             {
-                viewModel.Realtor.Created = System.DateTime.Now;
+                viewModel.Realtor.Created = DateTime.Now;
                 _context.Realtors.Add(viewModel.Realtor);
             }
             else
@@ -205,7 +195,7 @@ namespace RealEstateExample.Controllers
 
                 try
                 {
-                    realtorInDb.Created = System.DateTime.Now;
+                    realtorInDb.Created = DateTime.Now;
                     realtorInDb.Name = viewModel.Realtor.Name;
                     realtorInDb.Description = viewModel.Realtor.Description;
                     realtorInDb.Phone = viewModel.Realtor.Phone;
@@ -232,7 +222,10 @@ namespace RealEstateExample.Controllers
             }
 
             //return RedirectToAction("Edit", "Realtors", new {Id = viewModel.Realtor.Id });
-            return RedirectToAction("Index", "Realtors");
+            return RedirectToAction("Index", "Realtors", new
+            {
+                Success = string.Format("Realtor {0} saved", viewModel.Realtor.Id)
+            });
         }
 
     }

@@ -95,7 +95,10 @@ namespace RealEstateExample.Controllers
                 return View(id);
             }
 
-            return RedirectToAction("Index", "Listings");
+            return RedirectToAction("Index", "Listings", new
+            {
+                Success = string.Format("Listing {0} deleted", id)
+            });
         }
 
         // POST: Listings/Delete/5
@@ -121,7 +124,6 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         public ActionResult New()
         {
-          
             var realtors = _context.Realtors.ToList();
             var types = _context.ListingScheduleTypes.ToList();
             var photographs = _context.ListingPhotographs.ToList();
@@ -148,12 +150,7 @@ namespace RealEstateExample.Controllers
             return View("Edit", viewModel);
         }
 
-        /// <summary>
-        /// POST: Listing/Edit/5
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="collection"></param>
-        /// <returns></returns>
+
         /*  [HttpPost]
           public ActionResult Edit(int id, FormCollection collection)
           {
@@ -212,7 +209,7 @@ namespace RealEstateExample.Controllers
         {
             if (viewModel.Listing.Id == 0)
             {
-                viewModel.Listing.Created = System.DateTime.Now;
+                viewModel.Listing.Created = DateTime.Now;
                 _context.Listings.Add(viewModel.Listing);
             }
             else
@@ -259,16 +256,15 @@ namespace RealEstateExample.Controllers
             }
 
             //return RedirectToAction("Edit", "Listings", new { Id = viewModel.Listing.Id });
-            return RedirectToAction("Index", "Listings");
+            return RedirectToAction("Index", "Listings", new
+            {
+                Success = string.Format("Listing {0} saved", viewModel.Listing.Id)
+            });
         }
 
 
 
-        /// <summary>
-        /// Note: SelectListItem is predefined.
-        /// </summary>
-        /// <param name="elements"></param>
-        /// <returns></returns>
+        /*
         private IEnumerable<SelectListItem> GetSelectListItems(List<string> elements)
         {
             // Create an empty list to hold result of the operation
@@ -289,6 +285,7 @@ namespace RealEstateExample.Controllers
 
             return selectList;
         }
+        */
 
 
         /// <summary>
