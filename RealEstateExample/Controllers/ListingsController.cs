@@ -48,10 +48,15 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Listings/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             try
             {
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "Listings");
+
+                //
                 var listing = _context.Listings.SingleOrDefault(c => c.Id == id);
 
                 if (listing == null)
@@ -74,20 +79,34 @@ namespace RealEstateExample.Controllers
                 };
                 return View(viewModel);
             }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
         }
 
 
 
         // GET: Listings/Delete/5
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             try
             {
-                var listing = new Listing {Id = id};
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "Listings");
+
+                //
+                //var listing = new Listing { Id = id ?? default(int) };
+                var listing = new Listing { Id = id.GetValueOrDefault() };
                 _context.Listings.Attach(listing);
                 _context.Listings.Remove(listing);
                 _context.SaveChanges();
+            }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
             }
             catch (Exception ex)
             {
@@ -166,37 +185,52 @@ namespace RealEstateExample.Controllers
               }
           }*/
 
+
+
         /// <summary>
         /// GET: Listing/Edit/5
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int? id)
         {
-            var listing = _context.Listings.SingleOrDefault(r => r.Id == Id);
-
-            if (listing == null)
-                return HttpNotFound();
-
-            var realtors = _context.Realtors.ToList();
-            var types = _context.ListingScheduleTypes.ToList();
-            var photographs = _context.ListingPhotographs.ToList();
-
-            var slRealtors = GetSelectListRealtors(realtors);
-            var slTypes = GetSelectListListingScheduleTypes(types);
-            var slPhotographs = GetSelectListingPhotographs(photographs);
-
-            var viewModel = new ListingEditViewModel()
+            try
             {
-                Listing = listing,
-                Realtors = realtors,
-                ListingScheduleTypes = types,
-                ListingPhotographs = photographs,
-                SelectListRealtors = slRealtors,
-                SelectListListingScheduleTypes = slTypes,
-                SelectListListingPhotographs = slPhotographs
-            };
-            return View("Edit", viewModel);
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "Listings");
+
+                var listing = _context.Listings.SingleOrDefault(r => r.Id == id);
+
+                // if record doesn't exist 404
+                if (listing == null)
+                    return HttpNotFound();
+
+                var realtors = _context.Realtors.ToList();
+                var types = _context.ListingScheduleTypes.ToList();
+                var photographs = _context.ListingPhotographs.ToList();
+
+                var slRealtors = GetSelectListRealtors(realtors);
+                var slTypes = GetSelectListListingScheduleTypes(types);
+                var slPhotographs = GetSelectListingPhotographs(photographs);
+
+                var viewModel = new ListingEditViewModel()
+                {
+                    Listing = listing,
+                    Realtors = realtors,
+                    ListingScheduleTypes = types,
+                    ListingPhotographs = photographs,
+                    SelectListRealtors = slRealtors,
+                    SelectListListingScheduleTypes = slTypes,
+                    SelectListListingPhotographs = slPhotographs
+                };
+                return View("Edit", viewModel);
+
+            }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
         }
 
         /// <summary>
@@ -263,6 +297,15 @@ namespace RealEstateExample.Controllers
         }
 
 
+        /// <summary>
+        /// Handle no id passed situation.
+        /// </summary>
+        /// <returns></returns>
+       /* [HttpGet]
+        public ActionResult Edit()
+        {
+            return RedirectToAction("Index");
+        }*/
 
         /*
         private IEnumerable<SelectListItem> GetSelectListItems(List<string> elements)

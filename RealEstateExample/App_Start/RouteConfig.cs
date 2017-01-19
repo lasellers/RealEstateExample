@@ -13,45 +13,63 @@ namespace RealEstateExample
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //
             routes.MapRoute(
                 "Listings",
-                "listings",
+                "Listings",
                 new { controller = "Listings", action = "Index" }
                 );
 
             routes.MapRoute(
               "Listing",
-              "listing/{listingId}",
+              "Listing/{listingId}",
               new { controller = "Listings", action = "Details" },
               new { listingId = @"\d" }
               );
 
+            //
             routes.MapRoute(
                 "Realtors",
-                "realtors",
+                "Realtors",
                 new { controller = "Realtors", action = "Index" }
                 );
 
             routes.MapRoute(
               "Realtor",
-              "realtor/{realtorId}",
+              "Realtor/{realtorId}",
               new { controller = "Realtors", action = "Details" },
               new { realtorId = @"\d" }
               );
 
+            //
             routes.MapRoute(
-          "ListingScheduleTypes",
-          "listingScheduleTypes",
-          new { controller = "ListingScheduleTypes", action = "Index" }
-          );
+             "ListingScheduleTypes",
+             "ListingScheduleTypes",
+             new { controller = "ListingScheduleTypes", action = "Index" }
+            );
 
             routes.MapRoute(
               "ListingScheduleType",
-              "listingScheduleType/{typeId}",
+              "ListingScheduleType/{typeId}",
               new { controller = "ListingScheduleTypes", action = "Details" },
               new { realtorId = @"\d" }
               );
 
+            //
+            routes.MapRoute(
+              "ListingPhotographs",
+              "ListingPhotographs",
+              new { controller = "ListingPhotographs", action = "Index" }
+              );
+
+            routes.MapRoute(
+              "ListingPhotograph",
+              "ListingPhotograph/{photographId}",
+              new { controller = "ListingPhotographs", action = "Details" },
+              new { photographId = @"\d" }
+              );
+
+            //
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

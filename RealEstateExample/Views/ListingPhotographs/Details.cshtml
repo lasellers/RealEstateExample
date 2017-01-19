@@ -1,0 +1,27 @@
+﻿@model RealEstateExample.ViewModels.ListingPhotographEditViewModel
+@{
+    // Layout = null;
+    ViewBag.Title = @Model.ListingPhotograph.Id;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Id</title>
+</head>
+<body>
+    <h2>@Model.ListingPhotograph.Id</h2>
+    <div>
+
+        <ul>
+            <li>Id: @Model.ListingPhotograph.Id</li>
+            <li>Name: @Model.ListingPhotograph.Name</li>
+            <li>Description: @Model.ListingPhotograph.Description</li>
+            <li>ListingId: @Model.ListingPhotograph.ListingId</li>
+        </ul>
+
+    </div>
+</body>
+</html>

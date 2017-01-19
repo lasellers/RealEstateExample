@@ -11,10 +11,12 @@ namespace RealEstateExample.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public String Name { get; set; }
         public String Description { get; set; }
         public DateTime? Created { get; set; }
+
+        [DisplayName("Listing #")]
         public int? ListingId { get; set; }
-      //  public int RealtorId { get; set; }
     }
 }

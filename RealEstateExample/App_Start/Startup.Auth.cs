@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -54,9 +56,12 @@ namespace RealEstateExample
             //   consumerKey: "",
             //   consumerSecret: "");
 
+            Debug.WriteLine(ConfigurationManager.AppSettings["FaceBookAppId"]);
+            Debug.WriteLine(ConfigurationManager.AppSettings["FaceBookAppSecret"]);
+
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: ConfigurationManager.AppSettings["FaceBookAppId"],
+            //   appSecret: ConfigurationManager.AppSettings["FaceBookAppSecret"]);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

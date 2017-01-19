@@ -34,7 +34,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 var types = _context.ListingScheduleTypes.ToList();
-    
+
                 return View(types);
             }
             catch (InvalidCastException e)
@@ -47,11 +47,16 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: ListingScheduleTypes/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             try
             {
-              var type = _context.ListingScheduleTypes.SingleOrDefault(c => c.Id == id);
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "ListingScheduleTypes");
+
+                //
+                var type = _context.ListingScheduleTypes.SingleOrDefault(c => c.Id == id);
 
                 if (type == null)
                     return HttpNotFound();
@@ -72,25 +77,39 @@ namespace RealEstateExample.Controllers
                 };
                 return View(viewModel2);
             }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
         }
 
 
 
         // GET: ListingScheduleTypes/Delete/5
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             try
             {
-                var id32 = Convert.ToByte(id);
-                var type = new ListingScheduleType {Id = id32};
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "ListingScheduleTypes");
+
+                //
+                var id32 = Convert.ToByte(id.GetValueOrDefault());
+                var type = new ListingScheduleType { Id = id32 };
                 _context.ListingScheduleTypes.Attach(type);
                 _context.ListingScheduleTypes.Remove(type);
                 _context.SaveChanges();
-            } 
+            }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+
                 return View(id);
             }
 
@@ -106,7 +125,7 @@ namespace RealEstateExample.Controllers
         /// <param name="id"></param>
         /// <param name="collection"></param>
         /// <returns></returns>
-        [HttpPost]
+      /*  [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
@@ -120,9 +139,9 @@ namespace RealEstateExample.Controllers
                 return View();
             }
         }
+        */
 
 
-      
 
         /// <summary>
         /// 
@@ -140,39 +159,67 @@ namespace RealEstateExample.Controllers
 
 
         // POST: ListingScheduleTypes/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        /* 
+          [HttpPost]
+          public ActionResult Edit(int id, FormCollection collection)
+          {
+              try
+              {
+                  // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                  return RedirectToAction("Index");
+              }
+              catch
+              {
+                  return View();
+              }
+          }
+          */
+
+
+
 
         /// <summary>
         /// GET: ListingScheduleTypes/Edit/5
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var type = _context.ListingScheduleTypes.SingleOrDefault(r => r.Id == id);
-
-            if (type == null)
-                return HttpNotFound();
-
-            var viewModel = new ListingScheduleTypeViewModel()
+            try
             {
-                ListingScheduleType = type
-            };
-            return View("Edit", viewModel);
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "ListingScheduleTypes");
+
+                //
+                var type = _context.ListingScheduleTypes.SingleOrDefault(r => r.Id == id);
+
+                // if record doesn't exist 404
+                if (type == null)
+                    return HttpNotFound();
+
+                var viewModel = new ListingScheduleTypeViewModel()
+                {
+                    ListingScheduleType = type
+                };
+                return View("Edit", viewModel);
+            }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
         }
+
+        /// <summary>
+        /// Handle no id passed situation.
+        /// </summary>
+        /// <returns></returns>
+      /*  [HttpGet]
+        public ActionResult Edit()
+        {
+            return RedirectToAction("Index");
+        }*/
 
         /// <summary>
         /// 
@@ -184,7 +231,7 @@ namespace RealEstateExample.Controllers
         {
             if (viewModel.ListingScheduleType.Id == 0)
             {
-              //  viewModel.ListingScheduleType.Created = System.DateTime.Now;
+                //  viewModel.ListingScheduleType.Created = System.DateTime.Now;
                 _context.ListingScheduleTypes.Add(viewModel.ListingScheduleType);
             }
             else
@@ -193,7 +240,7 @@ namespace RealEstateExample.Controllers
 
                 try
                 {
-                 //   typeInDb.Id = viewModel.ListingScheduleType.Id;
+                    //   typeInDb.Id = viewModel.ListingScheduleType.Id;
                     typeInDb.Cost = viewModel.ListingScheduleType.Cost;
                     typeInDb.DiscountRate = viewModel.ListingScheduleType.DiscountRate;
                 }

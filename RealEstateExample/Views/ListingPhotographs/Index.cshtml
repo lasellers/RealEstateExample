@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RealEstateExample.Models.ListingPhotograph>
+    @{
+    //  Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Listing Photographs</title>
+    </head>
+    <body>
+
+        <h2>Listing Photographs</h2>
+
+        @Html.ActionLink("New Listing Photographs", "New", "Listing Photographs", new { @class = "btn btn-primary" })
+
+        @if (!Model.Any())
+        {
+        <p>No photographs yet</p>
+        }
+        else
+        {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Listing</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var photograph in Model)
+                {
+                <tr>
+                    <td>@Html.ActionLink("Edit", "Edit", "ListingPhotographs", new { id = photograph.Id }, new { @class = "btn btn-primary" })</td>
+                    <td>@Html.ActionLink(string.Format("{0}", photograph.Id), "Details", "ListingPhotographs", new { id = photograph.Id }, null)</td>
+                    <td>@photograph.Name</td>
+                    <td>@photograph.ListingId</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "ListingPhotographs", new { id = photograph.Id }, null)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }
+
+    </body>
+</html>
+
+@section scripts
+{
+<script>
+
+</script>
+}

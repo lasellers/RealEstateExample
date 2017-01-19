@@ -1,0 +1,46 @@
+﻿@model RealEstateExample.ViewModels.ListingPhotographEditViewModel
+@{
+    ViewBag.Title = "Edit";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @if (Model.ListingPhotograph == null)
+    {
+    <text>New Listing Photograph</text>
+    }
+    else
+    {
+    <text>Edit Listing Photograph</text>
+    }
+</h2>
+@using (Html.BeginForm("Save","ListingPhotographs",FormMethod.Post,new { enctype="multipart/form-data" } ))
+{
+<div class="form-group">
+    @Html.LabelFor(c => c.ListingPhotograph.Name)
+    @Html.TextBoxFor(c => c.ListingPhotograph.Name, new { @class = "form-control" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(c => c.ListingPhotograph.Description)
+    @Html.TextAreaFor(c => c.ListingPhotograph.Description, new { @class = "form-control" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(c => c.ListingPhotograph.ListingId)
+    @Html.DropDownListFor(
+    c => c.ListingPhotograph.ListingId,
+    Model.SelectListListings,
+    "- Select Listings -",
+    new { @class = "form-control" })
+    @Html.ValidationMessageFor(c => c.ListingPhotograph.ListingId)
+</div>
+
+<label for="file">Filename:</label>
+<input type="file" name="file" id="file" />
+
+
+    @Html.HiddenFor(c => c.ListingPhotograph.Id)
+
+<button type="submit" class="btn btn-primary">Save</button>
+}

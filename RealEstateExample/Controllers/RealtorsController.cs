@@ -32,17 +32,10 @@ namespace RealEstateExample.Controllers
             // realtors == null || realtors.Count()==0
 
             try
-            {       
+            {
                 var realtorsList = _context.Realtors.ToList();
-                //var realtorsList2 = _context.Realtors.Include();
-
+   
                 return View(realtorsList);
-
-                /* var viewModel = new RealtorsViewModel
-                 {
-                     Realtors = realtorsList
-                 };
-                 return View(viewModel);*/
             }
             catch (InvalidCastException e)
             {
@@ -54,10 +47,14 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Realtors/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             try
             {
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "Realtors");
+
                 var realtor = _context.Realtors.SingleOrDefault(c => c.Id == id);
 
                 if (realtor == null)
@@ -80,18 +77,32 @@ namespace RealEstateExample.Controllers
                 };
                 return View(viewModel2);
             }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
         }
 
         // GET: Realtors/Delete/5
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             try
             {
-                var realtor = new Realtor { Id = id };
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "Realtors");
+
+                //
+                //var realtor = new Realtor { Id = id ?? default(int) };
+                var realtor = new Realtor { Id = id.GetValueOrDefault() };
                 _context.Realtors.Attach(realtor);
                 _context.Realtors.Remove(realtor);
                 _context.SaveChanges();
+            }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
             }
             catch (Exception ex)
             {
@@ -105,20 +116,20 @@ namespace RealEstateExample.Controllers
             });
         }
 
-       /* [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        /* [HttpPost]
+         public ActionResult Delete(int id, FormCollection collection)
+         {
+             try
+             {
+                 // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
+                 return RedirectToAction("Index");
+             }
+             catch
+             {
+                 return View();
+             }
+         }*/
 
 
         /// <summary>
@@ -142,39 +153,64 @@ namespace RealEstateExample.Controllers
          }*/
 
         // POST: Realtors/Edit/5
-     /*   [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        /*   [HttpPost]
+           public ActionResult Edit(int id, FormCollection collection)
+           {
+               try
+               {
+                   // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
+                   return RedirectToAction("Index");
+               }
+               catch
+               {
+                   return View();
+               }
+           }*/
+
 
         /// <summary>
         /// GET: Realtors/Edit/5
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int? id)
         {
-            var realtor = _context.Realtors.SingleOrDefault(r => r.Id == Id);
-
-            if (realtor == null)
-                return HttpNotFound();
-
-            var viewModel = new RealtorViewModel()
+            try
             {
-                Realtor = realtor
-            };
-            return View("Edit", viewModel);
+                // no id number given? then 404
+                if (id == null)
+                    return RedirectToAction("Index", "Realtors");
+
+                //
+                var realtor = _context.Realtors.SingleOrDefault(r => r.Id == id);
+
+                if (realtor == null)
+                    return HttpNotFound();
+
+                var viewModel = new RealtorViewModel()
+                {
+                    Realtor = realtor
+                };
+                return View("Edit", viewModel);
+
+            }
+            catch (ArgumentException ex)
+            {
+                return HttpNotFound();
+            }
         }
+
+
+        /// <summary>
+        /// Handle no id passed situation.
+        /// </summary>
+        /// <returns></returns>
+      /*  [HttpGet]
+        public ActionResult Edit()
+        {
+            return RedirectToAction("Index");
+        }*/
 
         /// <summary>
         /// 
