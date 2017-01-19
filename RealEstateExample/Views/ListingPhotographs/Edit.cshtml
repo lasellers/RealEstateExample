@@ -39,6 +39,16 @@
 <label for="file">Filename:</label>
 <input type="file" name="file" id="file" />
 
+<div>
+@if(Model.FileURL.Length>=4)
+{
+<img src="@Model.FileURL" />
+}
+else
+{
+<p>No image.</p>
+}
+</div>
 
     @Html.HiddenFor(c => c.ListingPhotograph.Id)
 

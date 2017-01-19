@@ -62,31 +62,53 @@ namespace RealEstateExample.Controllers
                 if (id == null)
                     return RedirectToAction("Index", "ListingPhotographs");
 
-                //
+                // get the photo 
                 var photograph = _context.ListingPhotographs.SingleOrDefault(c => c.Id == id);
-
                 if (photograph == null)
                     return HttpNotFound();
 
-                return View(new ListingPhotographEditViewModel()
+                // get listing fields id, name, description atm
+                var listingSelect = _context.Listings.Select(x => new { x.Id, x.Name, x.Description }).SingleOrDefault(c => c.Id == photograph.ListingId);
+
+                //
+                ListingPhotographEditViewModel viewModel = new ListingPhotographEditViewModel()
                 {
-                    ListingPhotograph = photograph
-                });
+                    ListingPhotograph = photograph,
+                    FilePath = GetPhotographFilePathIfExists(id.GetValueOrDefault()),
+                    FileURL = GetPhotographUrlIfExists(id.GetValueOrDefault()),
+                    Listing = new Listing()
+                    {
+                        Id = listingSelect.Id,
+                        Name = listingSelect.Name,
+                        Description = listingSelect.Description
+                    }
+                };
+
+                return View(viewModel);
 
             }
             catch (InvalidCastException e)
             {
-                Debug.WriteLine("Debug: {0}", e.Message);
+                Debug.WriteLine("InvalidCastException: {0}", e.Message);
 
                 return View(new ListingPhotographEditViewModel()
                 {
                     ListingPhotograph = new ListingPhotograph()
                 });
             }
-            catch (ArgumentException ex)
+            catch (NullReferenceException e)
             {
+                Debug.WriteLine("NullReferenceException: {0}", e.Message);
+
                 return HttpNotFound();
             }
+            catch (ArgumentException e)
+            {
+                Debug.WriteLine("ArgumentException: {0}", e.Message);
+
+                return HttpNotFound();
+            }
+
         }
 
 
@@ -110,6 +132,7 @@ namespace RealEstateExample.Controllers
             }
             catch (ArgumentException ex)
             {
+                Debug.WriteLine(ex.Message);
                 return HttpNotFound();
             }
             catch (Exception ex)
@@ -123,23 +146,6 @@ namespace RealEstateExample.Controllers
                 Success = string.Format("Listing photograph {0} deleted", id)
             });
         }
-
-        // POST: ListingPhotographs/Delete/5
-        /*  [HttpPost]
-          public ActionResult Delete(int id, FormCollection collection)
-          {
-              try
-              {
-                  // TODO: Add delete logic here
-
-                  return RedirectToAction("Index");
-              }
-              catch
-              {
-                  return View();
-              }
-          }*/
-
 
         /// <summary>
         /// 
@@ -158,26 +164,6 @@ namespace RealEstateExample.Controllers
             return View("Edit", viewModel);
         }
 
-        /// <summary>
-        /// POST: ListingPhotographs/Edit/5
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        /*  [HttpPost]
-           public ActionResult Edit(int id, FormCollection collection)
-           {
-               try
-               {
-                   // TODO: Add update logic here
-   
-                   return RedirectToAction("Index");
-               }
-               catch
-               {
-                   return View();
-               }
-           }*/
 
         /// <summary>
         /// GET: ListingPhotographs/Edit/5
@@ -203,56 +189,18 @@ namespace RealEstateExample.Controllers
                 var viewModel = new ListingPhotographEditViewModel()
                 {
                     ListingPhotograph = photograph,
-                    SelectListListings = slListings
+                    SelectListListings = slListings,
+                    FilePath = GetPhotographFilePathIfExists(id.GetValueOrDefault()),
+                    FileURL = GetPhotographUrlIfExists(id.GetValueOrDefault())
                 };
                 return View("Edit", viewModel);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
                 return HttpNotFound();
             }
         }
 
-        /*
-        [HttpPost]
-        public ActionResult Edit(HttpPostedFileBase file, int? id)
-        {
-            try
-            {
-                // no id number given? then 404
-                if (id == null)
-                    return RedirectToAction("Index", "ListingPhotographs");
-
-                //
-                if (file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                    file.SaveAs(path);
-                }
-
-                //
-                var photograph = _context.ListingPhotographs.SingleOrDefault(r => r.Id == id);
-                if (photograph == null)
-                    return HttpNotFound();
-
-                var listings = _context.Listings.ToList();
-                var slListings = GetSelectListings(listings);
-
-                var viewModel = new ListingPhotographEditViewModel()
-                {
-                    ListingPhotograph = photograph,
-                    SelectListListings = slListings
-                };
-                return View("Edit", viewModel);
-
-            }
-            catch (ArgumentException ex)
-            {
-                return HttpNotFound();
-            }
-        }
-        */
 
         /// <summary>
         /// Note: SelectListItem is predefined.
@@ -280,16 +228,10 @@ namespace RealEstateExample.Controllers
             return selectList;
         }
 
-        /// <summary>
-        /// Handle no id passed situation.
-        /// </summary>
-        /// <returns></returns>
-        /* [HttpGet]
-         public ActionResult Edit()
-         {
-             return RedirectToAction("Index");
-         }*/
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class ViewDataUploadFilesResult
         {
             public string Name { get; set; }
@@ -323,6 +265,9 @@ namespace RealEstateExample.Controllers
                     photographInDb.ListingId = viewModel.ListingPhotograph.ListingId;
 
                     //
+                    string savedFolder = CheckPhotographPath();
+
+                    //
                     var uploadedFiles = new List<ViewDataUploadFilesResult>();
 
                     foreach (string file in Request.Files)
@@ -341,28 +286,14 @@ namespace RealEstateExample.Controllers
                             continue;
                         }
 
-                        string savedFileName = GetPhotographPath(viewModel.ListingPhotograph.Id);
-                        /*
-                        string savedFolder = Path.Combine(
-                            AppDomain.CurrentDomain.BaseDirectory,
-                            "Content/Photographs"
-                        );
-                        
-                        try
-                        {
-                            System.IO.Directory.CreateDirectory(Server.MapPath(savedFolder));
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e);
-                        }
+                        //
+                        string savedFileName = GetPhotographFilePath(viewModel.ListingPhotograph.Id);
 
-                        string savedFileName = Path.Combine(
-                            savedFolder,
-                            String.Format("{0}.jpg", viewModel.ListingPhotograph.Id)
-                        );*/
                         /*  Path.GetFileName(hpf.FileName) */
-                        hpf.SaveAs(savedFileName);
+                        if (savedFileName.Length > 0)
+                        {
+                            hpf.SaveAs(savedFileName);
+                        }
 
                         uploadedFiles.Add(new ViewDataUploadFilesResult()
                         {
@@ -403,29 +334,118 @@ namespace RealEstateExample.Controllers
         }
 
 
-        private string GetPhotographPath(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string GetPhotographPath()
         {
-            string savedFolder = Path.Combine(
+            //string savedFolder =
+            //  AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "Content" + Path.DirectorySeparatorChar + "Photographs";
+            // System.IO.Directory.CreateDirectory(Server.MapPath("/Content/Photographs/"));
+            string[] paths =
+            {
                 AppDomain.CurrentDomain.BaseDirectory,
-                "Content/Photographs"
-            );
+                "Content",
+                "Photographs"
+            };
+            string savedFolder = Path.Combine(paths);
+            return savedFolder;
+        }
+
+
+        /// <summary>
+        /// 
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string CheckPhotographPath()
+        {
+            string savedFolder = GetPhotographPath();
+
             try
             {
-                System.IO.Directory.CreateDirectory(Server.MapPath(savedFolder));
+                System.IO.Directory.CreateDirectory(savedFolder);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
 
+            return savedFolder;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string GetPhotographFilePath(int id)
+        {
             string savedFileName = Path.Combine(
-            savedFolder,
-            String.Format("{0}.jpg", id)
+             GetPhotographPath(),
+            id + ".jpg"
             );
 
             return savedFileName;
         }
 
-    }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string GetPhotographUrl(int id)
+        {
+            string savedFileName = "/Content/Photographs/" + id + ".jpg";
+            return savedFileName;
+        }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string GetPhotographFilePathIfExists(int id)
+        {
+            string savedFileName = Path.Combine(
+             GetPhotographPath(),
+            id + ".jpg"
+            );
+
+            if (System.IO.File.Exists(savedFileName))
+            {
+                return savedFileName;
+            }
+            else
+            {
+                return @"";
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string GetPhotographUrlIfExists(int id)
+        {
+            string filePath = GetPhotographFilePathIfExists(id);
+            if (filePath == "")
+            {
+                return @"";
+            }
+            else
+            {
+                string savedFileName = "/Content/Photographs/" + id + ".jpg";
+                return savedFileName;
+            }
+        }
+
+    }
 }

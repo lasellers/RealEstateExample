@@ -1,7 +1,7 @@
 ﻿@model RealEstateExample.ViewModels.ListingPhotographEditViewModel
 @{
     // Layout = null;
-    ViewBag.Title = @Model.ListingPhotograph.Id;
+    ViewBag.Title = @Model.ListingPhotograph.Name;
 }
 
 <!DOCTYPE html>
@@ -9,10 +9,10 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@Model.Id</title>
+    <title>@Model.ListingPhotograph.Name</title>
 </head>
 <body>
-    <h2>@Model.ListingPhotograph.Id</h2>
+    <h2>@Model.ListingPhotograph.Name</h2>
     <div>
 
         <ul>
@@ -20,6 +20,20 @@
             <li>Name: @Model.ListingPhotograph.Name</li>
             <li>Description: @Model.ListingPhotograph.Description</li>
             <li>ListingId: @Model.ListingPhotograph.ListingId</li>
+            <li>Listing Name: @Model.Listing.Name</li>
+            <li>Listing Description: @Model.Listing.Description</li>
+            <li>File Path: @Model.FilePath</li>
+            <li>File URL: @Model.FileURL</li>
+            <li>
+                @if(Model.FileURL.Length>=4)
+                {
+                <img src="@Model.FileURL" />
+                }
+                else
+                {
+                <p>No image.</p>
+                }
+            </li>
         </ul>
 
     </div>
