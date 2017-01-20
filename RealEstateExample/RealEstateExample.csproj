@@ -273,6 +273,10 @@
     <None Include="Properties\PublishProfiles\LocalFTP.pubxml" />
     <None Include="Properties\PublishProfiles\LocalTest.pubxml" />
     <None Include="Properties\PublishProfiles\WebTest.pubxml" />
+    <Content Include="Views\ListingPhotographs\Delete.cshtml" />
+    <Content Include="Views\ListingPhotographs\Details.cshtml" />
+    <Content Include="Views\ListingPhotographs\Edit.cshtml" />
+    <Content Include="Views\ListingPhotographs\Index.cshtml" />
     <None Include="Views\ListingScheduleTypes\Details.cshtml" />
     <Content Include="Views\ListingScheduleTypes\Edit.cshtml" />
   </ItemGroup>
@@ -579,7 +583,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ListingPhotographs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
