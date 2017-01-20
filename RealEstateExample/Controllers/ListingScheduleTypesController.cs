@@ -29,8 +29,6 @@ namespace RealEstateExample.Controllers
         // GET: ListingScheduleTypes
         public ActionResult Index()
         {
-            // realtors == null || realtors.Count()==0
-
             try
             {
                 var types = _context.ListingScheduleTypes.ToList();
@@ -39,7 +37,7 @@ namespace RealEstateExample.Controllers
             }
             catch (InvalidCastException e)
             {
-                Debug.WriteLine("Debug: {0}", e.Message);
+                Debug.WriteLine("InvalidCastException: {0}", e.Message);
 
                 return View(new List<ListingScheduleType>());
             }
@@ -51,7 +49,7 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to types index
                 if (id == null)
                     return RedirectToAction("Index", "ListingScheduleTypes");
 
@@ -69,7 +67,7 @@ namespace RealEstateExample.Controllers
             }
             catch (InvalidCastException e)
             {
-                Debug.WriteLine("Debug: {0}", e.Message);
+                Debug.WriteLine("InvalidCastException: {0}", e.Message);
 
                 var viewModel2 = new ListingScheduleTypeViewModel
                 {
@@ -79,7 +77,7 @@ namespace RealEstateExample.Controllers
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("ArgumentException: {0}", e.Message);
 
                 return HttpNotFound();
             }
@@ -91,9 +89,16 @@ namespace RealEstateExample.Controllers
         [HttpGet]
         public ActionResult Delete(int? id)
         {
+            // if we are not logged in, do not allow deletes
+            bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
+                        System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (!loggedIn)
+                return RedirectToAction("Index", "ListingScheduleTypes", new { Error = @"Must be logged in" });
+
+            //
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to types index
                 if (id == null)
                     return RedirectToAction("Index", "ListingScheduleTypes");
 
@@ -148,9 +153,16 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         public ActionResult Edit(int? id)
         {
+            // if we are not logged in, do not allow edits
+            bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
+                        System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (!loggedIn)
+                return RedirectToAction("Index", "ListingScheduleTypes", new { Error = @"Must be logged in" });
+
+            //
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to types index
                 if (id == null)
                     return RedirectToAction("Index", "ListingScheduleTypes");
 
@@ -169,7 +181,7 @@ namespace RealEstateExample.Controllers
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("ArgumentException: {0}", e.Message);
 
                 return HttpNotFound();
             }

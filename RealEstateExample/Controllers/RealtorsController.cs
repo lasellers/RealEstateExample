@@ -29,7 +29,6 @@ namespace RealEstateExample.Controllers
         // GET: Realtors
         public ActionResult Index()
         {
-            // realtors == null || realtors.Count()==0
 
             try
             {
@@ -39,7 +38,7 @@ namespace RealEstateExample.Controllers
             }
             catch (InvalidCastException e)
             {
-                Debug.WriteLine("Debug: {0}", e.Message);
+                Debug.WriteLine("InvalidCastException: {0}", e.Message);
 
                 return View(new List<Realtor>());
             }
@@ -51,7 +50,7 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to realtors index
                 if (id == null)
                     return RedirectToAction("Index", "Realtors");
 
@@ -89,9 +88,16 @@ namespace RealEstateExample.Controllers
         [HttpGet]
         public ActionResult Delete(int? id)
         {
+            // if we are not logged in, do not allow deletes
+            bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
+                        System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (!loggedIn)
+                return RedirectToAction("Index", "Realtors", new { Error = @"Must be logged in" });
+
+            //
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to realtors index
                 if (id == null)
                     return RedirectToAction("Index", "Realtors");
 
@@ -117,25 +123,11 @@ namespace RealEstateExample.Controllers
 
             return RedirectToAction("Index", "Realtors", new
             {
-                Success = string.Format("Realtor {0} deleted", id)
+                Success = $"Realtor {id} deleted"
             });
         }
 
-        /* [HttpPost]
-         public ActionResult Delete(int id, FormCollection collection)
-         {
-             try
-             {
-                 // TODO: Add delete logic here
-
-                 return RedirectToAction("Index");
-             }
-             catch
-             {
-                 return View();
-             }
-         }*/
-
+     
 
         /// <summary>
         /// 
@@ -151,28 +143,6 @@ namespace RealEstateExample.Controllers
         }
 
 
-        // GET: Realtors/Edit/5
-        /* public ActionResult Edit(int id)
-         {
-             return View();
-         }*/
-
-        // POST: Realtors/Edit/5
-        /*   [HttpPost]
-           public ActionResult Edit(int id, FormCollection collection)
-           {
-               try
-               {
-                   // TODO: Add update logic here
-
-                   return RedirectToAction("Index");
-               }
-               catch
-               {
-                   return View();
-               }
-           }*/
-
 
         /// <summary>
         /// GET: Realtors/Edit/5
@@ -181,9 +151,16 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         public ActionResult Edit(int? id)
         {
+            // if we are not logged in, do not allow edits
+            bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
+                        System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (!loggedIn)
+                return RedirectToAction("Index", "Realtors", new { Error = @"Must be logged in" });
+
+            //
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to realtors index
                 if (id == null)
                     return RedirectToAction("Index", "Realtors");
 
@@ -209,15 +186,6 @@ namespace RealEstateExample.Controllers
         }
 
 
-        /// <summary>
-        /// Handle no id passed situation.
-        /// </summary>
-        /// <returns></returns>
-      /*  [HttpGet]
-        public ActionResult Edit()
-        {
-            return RedirectToAction("Index");
-        }*/
 
         /// <summary>
         /// 

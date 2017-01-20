@@ -52,7 +52,7 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to listings index
                 if (id == null)
                     return RedirectToAction("Index", "Listings");
 
@@ -93,9 +93,16 @@ namespace RealEstateExample.Controllers
         [HttpGet]
         public ActionResult Delete(int? id)
         {
+            // if we are not logged in, do not allow deletes
+            bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
+                        System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (!loggedIn)
+                return RedirectToAction("Index", "Listings", new { Error = @"Must be logged in" });
+
+            //
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to listings index
                 if (id == null)
                     return RedirectToAction("Index", "Listings");
 
@@ -168,9 +175,16 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         public ActionResult Edit(int? id)
         {
+            // if we are not logged in, do not allow edits
+            bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
+                        System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (!loggedIn)
+                return RedirectToAction("Index", "Listings", new { Error = @"Must be logged in" });
+
+            //
             try
             {
-                // no id number given? then 404
+                // no id number given? then redirect to listings index
                 if (id == null)
                     return RedirectToAction("Index", "Listings");
 

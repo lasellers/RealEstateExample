@@ -35,10 +35,20 @@
                 @foreach (var listing in Model)
                 {
                     <tr>
-                        <td>@Html.ActionLink("Edit", "edit", "listings", new { id = listing.Id}, new { @class = "btn btn-primary" })</td>
+                        <td>
+                            @if ((System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity.IsAuthenticated))
+                            {
+                                @Html.ActionLink("Edit", "edit", "listings", new {id = listing.Id}, new {@class = "btn btn-primary"})
+                            }
+                        </td>
                         <td>@Html.ActionLink(listing.Name??"Null", "Details", "Listings", new { id = listing.Id }, null)</td>
                         <td>@listing.Description</td>
-                        <td>@Html.ActionLink("Delete", "Delete", "Listings", new { id = listing.Id }, null)</td>
+                        <td>
+                            @if ((System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity.IsAuthenticated))
+                            {
+                                @Html.ActionLink("Delete", "Delete", "Listings", new {id = listing.Id}, null)
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>
