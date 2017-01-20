@@ -118,7 +118,7 @@ namespace RealEstateExample.Controllers
             bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
                         System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
             if (!loggedIn)
-                return RedirectToAction("Index", "ListingPhotographs");
+                return RedirectToAction("Index", "ListingPhotographs", new { Error = @"Must be logged in" });
 
             //
             try
@@ -182,7 +182,7 @@ namespace RealEstateExample.Controllers
             bool loggedIn = (System.Web.HttpContext.Current.User != null) &&
                         System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
             if (!loggedIn)
-                return RedirectToAction("Index", "ListingPhotographs");
+                return RedirectToAction("Index", "ListingPhotographs", new { Error = @"Must be logged in" });
 
             //
             try
