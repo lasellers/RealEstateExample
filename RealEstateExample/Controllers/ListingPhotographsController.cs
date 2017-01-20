@@ -260,7 +260,7 @@ namespace RealEstateExample.Controllers
                     var photographInDb =
                         _context.ListingPhotographs.SingleOrDefault(m => m.Id == viewModel.ListingPhotograph.Id);
 
-                    photographInDb.Name = viewModel.ListingPhotograph.Name.Length == 0 ? "No Name" : viewModel.ListingPhotograph.Name;
+                    photographInDb.Name = viewModel.ListingPhotograph.Name ?? "No Name";
                     photographInDb.Description = viewModel.ListingPhotograph.Description;
                     photographInDb.ListingId = viewModel.ListingPhotograph.ListingId;
                     photographInDb.Created = DateTime.Now;

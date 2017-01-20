@@ -228,7 +228,7 @@ namespace RealEstateExample.Controllers
                 try
                 {
                     listingInDb.Created = System.DateTime.Now;
-                    listingInDb.Name = viewModel.Listing.Name.Length==0?"No Name":viewModel.Listing.Name;
+                    listingInDb.Name = viewModel.Listing.Name??"No Name";
                     listingInDb.Description = viewModel.Listing.Description;
                     listingInDb.Phone = viewModel.Listing.Phone;
                     listingInDb.Address = viewModel.Listing.Address;
