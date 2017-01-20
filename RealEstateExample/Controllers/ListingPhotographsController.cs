@@ -127,14 +127,16 @@ namespace RealEstateExample.Controllers
                 _context.ListingPhotographs.Remove(listing);
                 _context.SaveChanges();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(e.Message);
+
                 return View(id);
             }
 
@@ -258,10 +260,10 @@ namespace RealEstateExample.Controllers
                     var photographInDb =
                         _context.ListingPhotographs.SingleOrDefault(m => m.Id == viewModel.ListingPhotograph.Id);
 
-                    photographInDb.Created = DateTime.Now;
                     photographInDb.Name = viewModel.ListingPhotograph.Name;
                     photographInDb.Description = viewModel.ListingPhotograph.Description;
                     photographInDb.ListingId = viewModel.ListingPhotograph.ListingId;
+                    photographInDb.Created = DateTime.Now;
 
                     //
                     CheckPhotographPath();
@@ -302,13 +304,13 @@ namespace RealEstateExample.Controllers
                     }
 
                 }
-                catch (NullReferenceException ex)
+                catch (NullReferenceException e)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(e.Message);
                 }
-                catch (DirectoryNotFoundException ex)
+                catch (DirectoryNotFoundException e)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(e.Message);
                 }
 
             }
@@ -317,13 +319,13 @@ namespace RealEstateExample.Controllers
             {
                 _context.SaveChanges();
             }
-            catch (DbEntityValidationException ex)
+            catch (DbEntityValidationException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(e);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(e);
             }
 
             return RedirectToAction("Index", "ListingPhotographs", new

@@ -244,9 +244,9 @@ namespace RealEstateExample.Controllers
                     realtorInDb.Phone = viewModel.Realtor.Phone;
                     realtorInDb.Address = viewModel.Realtor.Address;
                 }
-                catch (NullReferenceException ex)
+                catch (NullReferenceException e)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(e.Message);
                 }
 
             }

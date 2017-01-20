@@ -200,9 +200,9 @@ namespace RealEstateExample.Controllers
                     typeInDb.Cost = viewModel.ListingScheduleType.Cost;
                     typeInDb.DiscountRate = viewModel.ListingScheduleType.DiscountRate;
                 }
-                catch (NullReferenceException ex)
+                catch (NullReferenceException e)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(e.Message);
                 }
 
             }
@@ -211,13 +211,13 @@ namespace RealEstateExample.Controllers
             {
                 _context.SaveChanges();
             }
-            catch (DbEntityValidationException ex)
+            catch (DbEntityValidationException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(e);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(e);
             }
 
             //return RedirectToAction("Edit", "ListingScheduleTypes", new { Id = viewModel.ListingScheduleType.Id });

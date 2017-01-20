@@ -112,9 +112,9 @@ namespace RealEstateExample.Controllers
 
                 return HttpNotFound();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(e.Message);
                 return View(id);
             }
 
