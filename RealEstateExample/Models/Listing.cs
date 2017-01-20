@@ -9,6 +9,11 @@ namespace RealEstateExample.Models
 {
     public class Listing
     {
+        const int NameLength = 120;
+        const int AddressLength = 220;
+        const int PhoneLength = 132;
+
+
         public enum States
         {
             NotForSale=0,
@@ -18,12 +23,12 @@ namespace RealEstateExample.Models
 
         public int Id { get; set; }
 
-        [StringLength(120)]
+        [StringLength(NameLength)]
         public string Name { get; set; }
         public string Description { get; set; }
-        [StringLength(220)]
+        [StringLength(AddressLength)]
         public string Address { get; set; }
-        [StringLength(132)]
+        [StringLength(PhoneLength)]
         public string Phone { get; set; }
 
         [DisplayName("Latitude")]
