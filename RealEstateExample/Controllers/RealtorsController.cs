@@ -239,7 +239,7 @@ namespace RealEstateExample.Controllers
                 try
                 {
                     realtorInDb.Created = DateTime.Now;
-                    realtorInDb.Name = viewModel.Realtor.Name;
+                    realtorInDb.Name = viewModel.Realtor.Name.Length == 0 ? "No Name" : viewModel.Realtor.Name;
                     realtorInDb.Description = viewModel.Realtor.Description;
                     realtorInDb.Phone = viewModel.Realtor.Phone;
                     realtorInDb.Address = viewModel.Realtor.Address;

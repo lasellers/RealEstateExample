@@ -17,7 +17,7 @@
 
         <ul>
             <li>Id: @Model.Realtor.Id</li>
-            <li>Created: @String.Format("{0:dddd, MMMM d, yyyy}", Model.Realtor.Created)</li>
+            <li>Created: @($"{Model.Realtor.Created:dddd, MMMM d, yyyy}")</li>
             <li>Name: @Model.Realtor.Name</li>
             <li>Description: @Model.Realtor.Description</li>
             <li>Phone: @Model.Realtor.Phone</li>

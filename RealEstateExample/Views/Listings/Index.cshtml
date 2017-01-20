@@ -36,7 +36,7 @@
                 {
                     <tr>
                         <td>@Html.ActionLink("Edit", "edit", "listings", new { id = listing.Id}, new { @class = "btn btn-primary" })</td>
-                        <td>@Html.ActionLink(listing.Name, "Details", "Listings", new { id = listing.Id }, null)</td>
+                        <td>@Html.ActionLink(listing.Name.Length==0?"Null":listing.Name, "Details", "Listings", new { id = listing.Id }, null)</td>
                         <td>@listing.Description</td>
                         <td>@Html.ActionLink("Delete", "Delete", "Listings", new { id = listing.Id }, null)</td>
                     </tr>
