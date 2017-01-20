@@ -269,7 +269,6 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\Site.js" />
     <Content Include="Views\ListingScheduleTypes\Delete.cshtml" />
-    <Content Include="readme.md" />
     <None Include="Properties\PublishProfiles\LocalFTP.pubxml" />
     <None Include="Properties\PublishProfiles\LocalTest.pubxml" />
     <None Include="Properties\PublishProfiles\WebTest.pubxml" />
