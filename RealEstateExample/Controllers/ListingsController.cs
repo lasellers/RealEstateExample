@@ -116,26 +116,11 @@ namespace RealEstateExample.Controllers
 
             return RedirectToAction("Index", "Listings", new
             {
-                Success = string.Format("Listing {0} deleted", id)
+                Success = $"Listing {id} deleted"
             });
         }
 
-        // POST: Listings/Delete/5
-        /*  [HttpPost]
-          public ActionResult Delete(int id, FormCollection collection)
-          {
-              try
-              {
-                  // TODO: Add delete logic here
-  
-                  return RedirectToAction("Index");
-              }
-              catch
-              {
-                  return View();
-              }
-          }*/
-
+      
 
         /// <summary>
         /// 
@@ -170,22 +155,7 @@ namespace RealEstateExample.Controllers
         }
 
 
-        /*  [HttpPost]
-          public ActionResult Edit(int id, FormCollection collection)
-          {
-              try
-              {
-                  // TODO: Add update logic here
-  
-                  return RedirectToAction("Index");
-              }
-              catch
-              {
-                  return View();
-              }
-          }*/
-
-
+      
 
         /// <summary>
         /// GET: Listing/Edit/5
@@ -225,7 +195,6 @@ namespace RealEstateExample.Controllers
                     SelectListListingPhotographs = slPhotographs
                 };
                 return View("Edit", viewModel);
-
             }
             catch (ArgumentException ex)
             {
@@ -292,45 +261,12 @@ namespace RealEstateExample.Controllers
             //return RedirectToAction("Edit", "Listings", new { Id = viewModel.Listing.Id });
             return RedirectToAction("Index", "Listings", new
             {
-                Success = string.Format("Listing {0} saved", viewModel.Listing.Id)
+                Success = $"Listing {viewModel.Listing.Id} saved"
             });
         }
 
 
-        /// <summary>
-        /// Handle no id passed situation.
-        /// </summary>
-        /// <returns></returns>
-       /* [HttpGet]
-        public ActionResult Edit()
-        {
-            return RedirectToAction("Index");
-        }*/
-
-        /*
-        private IEnumerable<SelectListItem> GetSelectListItems(List<string> elements)
-        {
-            // Create an empty list to hold result of the operation
-            var selectList = new List<SelectListItem>();
-
-            // For each string in the 'elements' variable, create a new SelectListItem object
-            // that has both its Value and Text properties set to a particular value.
-            // This will result in MVC rendering each item as:
-            //     <option value="State Name">State Name</option>
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = element,
-                    Text = element
-                });
-            }
-
-            return selectList;
-        }
-        */
-
-
+      
         /// <summary>
         /// Note: SelectListItem is predefined.
         /// </summary>

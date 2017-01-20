@@ -34,9 +34,6 @@ namespace RealEstateExample.Controllers
             try
             {
                 var photographs = _context.ListingPhotographs.ToList();
-
-                //string savedFileName = GetPhotographPath(viewModel.ListingPhotograph.Id);
-
                 return View(photographs);
             }
             catch (InvalidCastException e)
@@ -143,7 +140,7 @@ namespace RealEstateExample.Controllers
 
             return RedirectToAction("Index", "ListingPhotographs", new
             {
-                Success = string.Format("Listing photograph {0} deleted", id)
+                Success = $"Listing photograph {id} deleted"
             });
         }
 
@@ -329,7 +326,7 @@ namespace RealEstateExample.Controllers
 
             return RedirectToAction("Index", "ListingPhotographs", new
             {
-                Success = string.Format("Listing photograph {0} saved", viewModel.ListingPhotograph.Id)
+                Success = $"Listing photograph {viewModel.ListingPhotograph.Id} saved"
             });
         }
 
@@ -399,7 +396,7 @@ namespace RealEstateExample.Controllers
         /// <returns></returns>
         private string GetPhotographUrl(int id)
         {
-            string savedFileName = "/Content/Photographs/" + id + ".jpg";
+            string savedFileName = $"/Content/Photographs/{id}.jpg";
             return savedFileName;
         }
 

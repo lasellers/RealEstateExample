@@ -115,31 +115,9 @@ namespace RealEstateExample.Controllers
 
             return RedirectToAction("Index", "ListingScheduleTypes", new
             {
-                Success = string.Format("List Schedule Type {0} deleted", id)
+                Success = $"List Schedule Type {id} deleted"
             });
         }
-
-        /// <summary>
-        /// POST: ListingScheduleTypes/Delete/5
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-      /*  [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
 
 
 
@@ -156,26 +134,6 @@ namespace RealEstateExample.Controllers
 
             return View("Edit", viewModel);
         }
-
-
-        // POST: ListingScheduleTypes/Edit/5
-        /* 
-          [HttpPost]
-          public ActionResult Edit(int id, FormCollection collection)
-          {
-              try
-              {
-                  // TODO: Add update logic here
-
-                  return RedirectToAction("Index");
-              }
-              catch
-              {
-                  return View();
-              }
-          }
-          */
-
 
 
 
@@ -211,15 +169,7 @@ namespace RealEstateExample.Controllers
             }
         }
 
-        /// <summary>
-        /// Handle no id passed situation.
-        /// </summary>
-        /// <returns></returns>
-      /*  [HttpGet]
-        public ActionResult Edit()
-        {
-            return RedirectToAction("Index");
-        }*/
+
 
         /// <summary>
         /// 
@@ -267,7 +217,7 @@ namespace RealEstateExample.Controllers
             //return RedirectToAction("Edit", "ListingScheduleTypes", new { Id = viewModel.ListingScheduleType.Id });
             return RedirectToAction("Index", "ListingScheduleTypes", new
             {
-                Success = string.Format("Listing Schedule Type {0} saved", viewModel.ListingScheduleType.Id)
+                Success = $"Listing Schedule Type {viewModel.ListingScheduleType.Id} saved"
             });
         }
 
