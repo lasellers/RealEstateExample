@@ -1,1 +1,4 @@
 ﻿* Session disabled, web.config system.web sessionState
+
+add-migration ConstAnnotations
+update-database
