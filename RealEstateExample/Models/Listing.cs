@@ -19,12 +19,12 @@ namespace RealEstateExample.Models
         public int Id { get; set; }
 
         [StringLength(120)]
-        public String Name { get; set; }
-        public String Description { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         [StringLength(220)]
-        public String Address { get; set; }
+        public string Address { get; set; }
         [StringLength(132)]
-        public String Phone { get; set; }
+        public string Phone { get; set; }
 
         [DisplayName("Latitude")]
         public float? Lat { get; set; }

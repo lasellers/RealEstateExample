@@ -10,10 +10,10 @@ namespace RealEstateExample.Models
     public class Realtor
     {
         public int Id { get; set; }
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public String Phone { get; set; }
-        public String Address { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
         public DateTime? Created { get; set; }
     }
 }

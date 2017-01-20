@@ -77,8 +77,10 @@ namespace RealEstateExample.Controllers
                 };
                 return View(viewModel2);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
         }
@@ -100,13 +102,16 @@ namespace RealEstateExample.Controllers
                 _context.Realtors.Remove(realtor);
                 _context.SaveChanges();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(e.Message);
+
                 return View(id);
             }
 
@@ -195,8 +200,10 @@ namespace RealEstateExample.Controllers
                 return View("Edit", viewModel);
 
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
         }
@@ -248,19 +255,19 @@ namespace RealEstateExample.Controllers
             {
                 _context.SaveChanges();
             }
-            catch (DbEntityValidationException ex)
+            catch (DbEntityValidationException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(e);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(e);
             }
 
             //return RedirectToAction("Edit", "Realtors", new {Id = viewModel.Realtor.Id });
             return RedirectToAction("Index", "Realtors", new
             {
-                Success = string.Format("Realtor {0} saved", viewModel.Realtor.Id)
+                Success = $"Realtor {viewModel.Realtor.Id} saved"
             });
         }
 

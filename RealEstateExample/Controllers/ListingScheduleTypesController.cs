@@ -77,8 +77,10 @@ namespace RealEstateExample.Controllers
                 };
                 return View(viewModel2);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
         }
@@ -102,13 +104,15 @@ namespace RealEstateExample.Controllers
                 _context.ListingScheduleTypes.Remove(type);
                 _context.SaveChanges();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(e.Message);
 
                 return View(id);
             }
@@ -163,8 +167,10 @@ namespace RealEstateExample.Controllers
                 };
                 return View("Edit", viewModel);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
         }

@@ -194,6 +194,8 @@ namespace RealEstateExample.Controllers
             }
             catch (ArgumentException e)
             {
+                Debug.WriteLine(e.Message);
+
                 return HttpNotFound();
             }
         }
@@ -245,7 +247,7 @@ namespace RealEstateExample.Controllers
         {
             if (viewModel.ListingPhotograph.Id == 0)
             {
-                viewModel.ListingPhotograph.Created = System.DateTime.Now;
+                viewModel.ListingPhotograph.Created = DateTime.Now;
                 _context.ListingPhotographs.Add(viewModel.ListingPhotograph);
             }
             else
@@ -262,14 +264,14 @@ namespace RealEstateExample.Controllers
                     photographInDb.ListingId = viewModel.ListingPhotograph.ListingId;
 
                     //
-                    string savedFolder = CheckPhotographPath();
+                    CheckPhotographPath();
 
                     //
-                    var uploadedFiles = new List<ViewDataUploadFilesResult>();
+                   // var uploadedFiles = new List<ViewDataUploadFilesResult>();
 
                     foreach (string file in Request.Files)
                     {
-                        HttpPostedFileBase hpf = Request.Files[file] as HttpPostedFileBase;
+                        HttpPostedFileBase hpf = Request.Files[file];
                         if (hpf == null)
                         {
                             continue;
@@ -292,11 +294,11 @@ namespace RealEstateExample.Controllers
                             hpf.SaveAs(savedFileName);
                         }
 
-                        uploadedFiles.Add(new ViewDataUploadFilesResult()
+                       /* uploadedFiles.Add(new ViewDataUploadFilesResult()
                         {
                             Name = savedFileName,
                             Length = hpf.ContentLength
-                        });
+                        });*/
                     }
 
                 }
@@ -334,7 +336,6 @@ namespace RealEstateExample.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         private string GetPhotographPath()
         {
@@ -357,20 +358,19 @@ namespace RealEstateExample.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        private string CheckPhotographPath()
+        private void CheckPhotographPath()
         {
             string savedFolder = GetPhotographPath();
 
             try
             {
-                System.IO.Directory.CreateDirectory(savedFolder);
+                Directory.CreateDirectory(savedFolder);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
 
-            return savedFolder;
         }
 
 
