@@ -69,6 +69,9 @@ namespace RealEstateExample
               new { photographId = @"\d" }
               );
 
+            // attributes routes for easier api
+            routes.MapMvcAttributeRoutes();
+
             //
             routes.MapRoute(
                 name: "Default",

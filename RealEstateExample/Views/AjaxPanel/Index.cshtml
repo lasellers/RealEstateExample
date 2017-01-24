@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "Ajax Panel";
+}
+
+<h2>Ajax Panel</h2>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">Realtors <span class="btn btn-primary" id="GetRealtors">Get Realtors</span> </div>
+    <div class="panel-body" id="Realtors">Press Button to load data.</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Listings <span class="btn btn-primary" id="GetListings">Get Listings</span> </div>
+    <div class="panel-body" id="Listings">Press Button to load data.</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Listing Photographs <span class="btn btn-primary" id="GetListingPhotographs">Get Listing Photographs</span> </div>
+    <div class="panel-body" id="ListingPhotographs">Press Button to load data.</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Listing Schedule Types <span class="btn btn-primary" id="GetListingScheduleTypes">Get Listing Schedule Types</span> </div>
+    <div class="panel-body" id="ListingScheduleTypes">Press Button to load data.</div>
+</div>
+
+
+@section scripts
+{
+    <script>
+ 
+        //
+        $(document).ready(function () {
+
+            //
+            $("#GetRealtors").on("click", function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/realtors",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.debug(response);
+                        var columns = ["Id", "Name", "Phone"];
+                        $("#Realtors").html(JSONtoTable(
+                            columns,
+                            response));
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+
+            });
+
+            //
+            $("#GetListings").on("click", function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/listings",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.debug(response);
+                        var columns = ["Id", "Name", "Description","Address"];
+                        $("#Listings").html(JSONtoTable(
+                            columns,
+                            response));
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+
+            });
+
+            //
+            $("#GetListingPhotographs").on("click", function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/listingphotographs",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.debug(response);
+                        var columns = ["Id", "Name", "Description"];
+                        $("#ListingPhotographs").html(JSONtoTable(
+                            columns,
+                            response));
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+
+            });
+
+            //
+            $("#GetListingScheduleTypes").on("click", function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/listingscheduletypes",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.debug(response);
+                        var columns = ["Id", "Cost", "DiscountRate"];
+                        $("#ListingScheduleTypes").html(JSONtoTable(
+                            columns,
+                            response));
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+
+            });
+
+        });
+
+        //
+        Object.prototype.objectToArray = function () {
+            if (
+                typeof this != 'object' ||
+                typeof this.length != "undefined" ||
+                typeof this.Id == "undefined"
+            ) {
+                return false;
+            }
+
+            var k = Object.getOwnPropertyNames(this);
+            var v = Object.values(this);
+
+            var r = new Array(k.length);
+            for (var i = 0; i < k.length; i++) {
+                r[k[i]] = v[i];
+            }
+
+            return r;
+        };
+
+        //
+        function JSONtoTable(columns, rows) {
+            var html = "";
+            html += "<table>";
+            html += "<tr>";
+            for (var col = 0; col < columns.length; col++) {
+                html += "<th>" + columns[col] + "</th>";
+            }
+            html += "</tr>";
+            for (var index = 0; index < rows.length; index++) {
+                var obj = rows[index];
+                console.log(obj);
+
+                //var row = Array.prototype.slice.call(rows[index]);
+
+                ///var row = $.map(rows[index], function (value, index) {
+                //     return [value];
+                // });
+
+                var row = obj.objectToArray();
+                console.log(row);
+
+                html += "<tr>";
+                for (var col = 0; col < columns.length; col++) {
+                    html += "<td>" + row[columns[col]] + "</td>";
+                }
+                html += "</tr>";
+            }
+            html += "</table>";
+
+            return html;
+        }
+    </script>
+}

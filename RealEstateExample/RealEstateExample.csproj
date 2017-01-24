@@ -218,18 +218,20 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\API\PropertiesController.cs" />
+    <Compile Include="Controllers\AjaxPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListingPhotographsController.cs" />
     <Compile Include="Controllers\ListingScheduleTypesController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RealtorsController.cs" />
+    <Compile Include="Controllers\RESTController.cs" />
     <Compile Include="DTOs\ListingDTO.cs" />
     <Compile Include="DTOs\RealtorDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JSONModels\ErrorJSONModel.cs" />
     <Compile Include="Migrations\201701161958539_InitialModelsRework.cs" />
     <Compile Include="Migrations\201701161958539_InitialModelsRework.Designer.cs">
       <DependentUpon>201701161958539_InitialModelsRework.cs</DependentUpon>
@@ -280,6 +282,7 @@
     <Content Include="Views\ListingPhotographs\Details.cshtml" />
     <Content Include="Views\ListingPhotographs\Edit.cshtml" />
     <Content Include="Views\ListingPhotographs\Index.cshtml" />
+    <Content Include="Views\AjaxPanel\Index.cshtml" />
     <None Include="Views\ListingScheduleTypes\Details.cshtml" />
     <Content Include="Views\ListingScheduleTypes\Edit.cshtml" />
   </ItemGroup>
