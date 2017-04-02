@@ -1,4 +1,4 @@
-#RealEstateExample
+# RealEstateExample
 
 This is a simple CRUD Example in .NET C# using an Entity Framework Code-First DB.
 
@@ -8,5 +8,5 @@ Note: I could have added AJAX to the form handling but this was a test to learn 
 
 Posted as an example.
 
-![RealEstateExample](https://github.com/lasellers/RealEstateExample/blob/master/screenshot1.png)
-![RealEstateExample](https://github.com/lasellers/RealEstateExample/blob/master/screenshot2.png)
+![RealEstateExample](https://github.com/lasellers/RealEstateExample/blob/master/Screenshot1.png)
+![RealEstateExample](https://github.com/lasellers/RealEstateExample/blob/master/Screenshot2.png)
