@@ -254,6 +254,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataAnnotationHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListingPhotograph.cs" />
     <Compile Include="Models\Listing.cs" />

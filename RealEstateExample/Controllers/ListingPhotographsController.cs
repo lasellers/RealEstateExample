@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -29,11 +27,15 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: ListingPhotographs
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             try
             {
-                var photographs = _context.ListingPhotographs.ToList();
+                List<ListingPhotograph> photographs = _context.ListingPhotographs.ToList();
                 return View(photographs);
             }
             catch (InvalidCastException e)
@@ -51,6 +53,11 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: ListingPhotographs/Details/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
             try
@@ -60,7 +67,7 @@ namespace RealEstateExample.Controllers
                     return RedirectToAction("Index", "ListingPhotographs");
 
                 // get the photo 
-                var photograph = _context.ListingPhotographs.SingleOrDefault(c => c.Id == id);
+                ListingPhotograph photograph = _context.ListingPhotographs.SingleOrDefault(c => c.Id == id);
                 if (photograph == null)
                     return HttpNotFound();
 
@@ -111,6 +118,11 @@ namespace RealEstateExample.Controllers
 
 
         // GET: ListingPhotographs/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -129,7 +141,7 @@ namespace RealEstateExample.Controllers
 
                 //
                 // var listing = new Listing { Id = id ?? default(int) };
-                var listing = new ListingPhotograph { Id = id.GetValueOrDefault() };
+                ListingPhotograph listing = new ListingPhotograph { Id = id.GetValueOrDefault() };
                 _context.ListingPhotographs.Attach(listing);
                 _context.ListingPhotographs.Remove(listing);
                 _context.SaveChanges();
@@ -192,7 +204,7 @@ namespace RealEstateExample.Controllers
                     return RedirectToAction("Index", "ListingPhotographs");
 
                 //
-                var photograph = _context.ListingPhotographs.SingleOrDefault(r => r.Id == id);
+                ListingPhotograph photograph = _context.ListingPhotographs.SingleOrDefault(r => r.Id == id);
                 if (photograph == null)
                     return HttpNotFound();
 
@@ -271,7 +283,7 @@ namespace RealEstateExample.Controllers
 
                 try
                 {
-                    var photographInDb =
+                    ListingPhotograph photographInDb =
                         _context.ListingPhotographs.SingleOrDefault(m => m.Id == viewModel.ListingPhotograph.Id);
 
                     photographInDb.Name = viewModel.ListingPhotograph.Name ?? "No Name";

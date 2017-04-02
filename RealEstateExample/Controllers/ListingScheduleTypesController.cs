@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using RealEstateExample.Models;
 using RealEstateExample.ViewModels;
-using System.Diagnostics;
 
 namespace RealEstateExample.Controllers
 {
@@ -27,11 +26,15 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: ListingScheduleTypes
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             try
             {
-                var types = _context.ListingScheduleTypes.ToList();
+                List<ListingScheduleType> types = _context.ListingScheduleTypes.ToList();
 
                 return View(types);
             }
@@ -45,6 +48,11 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: ListingScheduleTypes/Details/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
             try
@@ -54,7 +62,7 @@ namespace RealEstateExample.Controllers
                     return RedirectToAction("Index", "ListingScheduleTypes");
 
                 //
-                var type = _context.ListingScheduleTypes.SingleOrDefault(c => c.Id == id);
+                ListingScheduleType type = _context.ListingScheduleTypes.SingleOrDefault(c => c.Id == id);
 
                 if (type == null)
                     return HttpNotFound();
@@ -104,7 +112,7 @@ namespace RealEstateExample.Controllers
 
                 //
                 var id32 = Convert.ToByte(id.GetValueOrDefault());
-                var type = new ListingScheduleType { Id = id32 };
+                ListingScheduleType type = new ListingScheduleType { Id = id32 };
                 _context.ListingScheduleTypes.Attach(type);
                 _context.ListingScheduleTypes.Remove(type);
                 _context.SaveChanges();
@@ -167,7 +175,7 @@ namespace RealEstateExample.Controllers
                     return RedirectToAction("Index", "ListingScheduleTypes");
 
                 //
-                var type = _context.ListingScheduleTypes.SingleOrDefault(r => r.Id == id);
+                ListingScheduleType type = _context.ListingScheduleTypes.SingleOrDefault(r => r.Id == id);
 
                 // if record doesn't exist 404
                 if (type == null)
@@ -204,7 +212,7 @@ namespace RealEstateExample.Controllers
             }
             else
             {
-                var typeInDb = _context.ListingScheduleTypes.SingleOrDefault(m => m.Id == viewModel.ListingScheduleType.Id);
+                ListingScheduleType typeInDb = _context.ListingScheduleTypes.SingleOrDefault(m => m.Id == viewModel.ListingScheduleType.Id);
 
                 try
                 {

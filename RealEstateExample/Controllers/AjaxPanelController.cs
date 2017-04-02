@@ -9,6 +9,10 @@ namespace RealEstateExample.Controllers
     public class AjaxPanelController : Controller
     {
         // GET: ApiPanel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();

@@ -11,3 +11,4 @@ namespace RealEstateExample.ViewModels
         public Realtor Realtor { get; set; }
     }
 }
+   

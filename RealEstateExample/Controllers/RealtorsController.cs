@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using RealEstateExample.Models;
 using RealEstateExample.ViewModels;
-using System.Diagnostics;
 
 namespace RealEstateExample.Controllers
 {
@@ -27,6 +26,10 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Realtors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
 
@@ -46,6 +49,11 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Realtors/Details/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
             try
@@ -85,6 +93,11 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Realtors/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Delete(int? id)
         {

@@ -26,11 +26,15 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Listings
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             try
             {
-                var listingsList = _context.Listings.ToList();
+                List<Listing> listingsList = _context.Listings.ToList();
                 return View(listingsList);
             }
             catch (InvalidCastException e)
@@ -48,6 +52,11 @@ namespace RealEstateExample.Controllers
         }
 
         // GET: Listings/Details/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
             try
@@ -57,7 +66,7 @@ namespace RealEstateExample.Controllers
                     return RedirectToAction("Index", "Listings");
 
                 //
-                var listing = _context.Listings.SingleOrDefault(c => c.Id == id);
+                Listing listing = _context.Listings.SingleOrDefault(c => c.Id == id);
 
                 if (listing == null)
                     return HttpNotFound();
@@ -71,7 +80,7 @@ namespace RealEstateExample.Controllers
             }
             catch (InvalidCastException e)
             {
-                Debug.WriteLine("Debug: {0}", e.Message);
+                Debug.WriteLine("InvalidCastException {0}", e.Message);
 
                 var viewModel = new ListingViewModel
                 {
@@ -81,7 +90,7 @@ namespace RealEstateExample.Controllers
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("ArgumentException {0}", e.Message);
 
                 return HttpNotFound();
             }
@@ -90,6 +99,11 @@ namespace RealEstateExample.Controllers
 
 
         // GET: Listings/Delete/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -108,20 +122,21 @@ namespace RealEstateExample.Controllers
 
                 //
                 //var listing = new Listing { Id = id ?? default(int) };
-                var listing = new Listing { Id = id.GetValueOrDefault() };
+                Listing listing = new Listing { Id = id.GetValueOrDefault() };
                 _context.Listings.Attach(listing);
                 _context.Listings.Remove(listing);
                 _context.SaveChanges();
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("ArgumentException {0}", e.Message);
 
                 return HttpNotFound();
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("Exception {0}", e.Message);
+
                 return View(id);
             }
 
@@ -188,7 +203,7 @@ namespace RealEstateExample.Controllers
                 if (id == null)
                     return RedirectToAction("Index", "Listings");
 
-                var listing = _context.Listings.SingleOrDefault(r => r.Id == id);
+                Listing listing = _context.Listings.SingleOrDefault(r => r.Id == id);
 
                 // if record doesn't exist 404
                 if (listing == null)
@@ -216,7 +231,7 @@ namespace RealEstateExample.Controllers
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("ArgumentException {0}", e.Message);
 
                 return HttpNotFound();
             }
@@ -237,7 +252,7 @@ namespace RealEstateExample.Controllers
             }
             else
             {
-                var listingInDb = _context.Listings.SingleOrDefault(m => m.Id == viewModel.Listing.Id);
+                Listing listingInDb = _context.Listings.SingleOrDefault(m => m.Id == viewModel.Listing.Id);
 
                 try
                 {
@@ -258,9 +273,9 @@ namespace RealEstateExample.Controllers
 
                     listingInDb.ListingScheduleTypeId = viewModel.Listing.ListingScheduleTypeId;
                 }
-                catch (NullReferenceException ex)
+                catch (NullReferenceException e)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("NullReferenceException: {0}", e.Message);
                 }
 
             }
@@ -269,13 +284,13 @@ namespace RealEstateExample.Controllers
             {
                 _context.SaveChanges();
             }
-            catch (DbEntityValidationException ex)
+            catch (DbEntityValidationException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine("DbEntityValidationException: {0}", e.Message);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine("DbUpdateException: {0}", e.Message);
             }
 
             //return RedirectToAction("Edit", "Listings", new { Id = viewModel.Listing.Id });

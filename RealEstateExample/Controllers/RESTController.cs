@@ -15,7 +15,7 @@ namespace RealEstateExample.Controllers
     public class RESTController : ApiController
     {
         private ApplicationDbContext _context;
-        private bool json = true;
+        private readonly bool json = true;
 
         /// <summary>
         /// 
@@ -25,6 +25,10 @@ namespace RealEstateExample.Controllers
             _context = new ApplicationDbContext();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public System.Net.Http.Formatting.MediaTypeFormatter GetFormatter()
         {
             if (json)
@@ -60,6 +64,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 List<Listing> listingsList = _context.Listings.ToList();
+
                 return Request.CreateResponse(HttpStatusCode.OK, listingsList, GetFormatter());
             }
             catch (InvalidCastException e)
@@ -115,7 +120,8 @@ namespace RealEstateExample.Controllers
         {
             try
             {
-                var realtorsList = _context.Realtors.ToList();
+                List<Realtor> realtorsList = _context.Realtors.ToList();
+
                 return Request.CreateResponse(HttpStatusCode.OK, realtorsList, GetFormatter());
             }
             catch (InvalidCastException e)
@@ -174,6 +180,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 List<ListingScheduleType> typesList = _context.ListingScheduleTypes.ToList();
+
                 return Request.CreateResponse(HttpStatusCode.OK, typesList, GetFormatter());
             }
             catch (InvalidCastException e)
@@ -234,6 +241,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 List<ListingPhotograph> photographsList = _context.ListingPhotographs.ToList();
+
                 return Request.CreateResponse(HttpStatusCode.OK, photographsList, GetFormatter());
             }
             catch (InvalidCastException e)
@@ -262,6 +270,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 List<ListingPhotograph> photographsList = _context.ListingPhotographs.Where(x => x.Id == listingId).ToList();
+
                 return Request.CreateResponse(HttpStatusCode.OK, photographsList, GetFormatter());
             }
             catch (InvalidCastException e)
@@ -291,6 +300,7 @@ namespace RealEstateExample.Controllers
             try
             {
                 List<ListingPhotograph> photographsList = _context.ListingPhotographs.Where(x => x.Id == photographId && x.ListingId == listingId).ToList();
+
                 return Request.CreateResponse(HttpStatusCode.OK, photographsList, GetFormatter());
             }
             catch (InvalidCastException e)
