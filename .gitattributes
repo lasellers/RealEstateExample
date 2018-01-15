@@ -64,4 +64,4 @@
 
 *.cshtml linguist-language=csharp
 *.cs linguist-language=csharp
-
+Scripts/* linguist-vendored
